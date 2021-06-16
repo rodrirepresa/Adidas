@@ -2,12 +2,15 @@ package com.represa.adidas
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ui.AppBarConfiguration
 import com.represa.adidas.databinding.ActivityMainBinding
+import com.represa.adidas.ui.viewmodels.ProductViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    val productViewModel: ProductViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,4 +18,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    override fun onStart() {
+        super.onStart()
+        productViewModel.test()
+    }
 }
