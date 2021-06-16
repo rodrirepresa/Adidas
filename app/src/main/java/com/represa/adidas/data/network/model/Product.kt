@@ -1,5 +1,7 @@
 package com.represa.adidas.data.network.model
 
+import com.represa.adidas.data.database.entities.ProductEntity
+
 
 data class Product(
     val currency: String,
@@ -9,3 +11,14 @@ data class Product(
     val description: String,
     val imgUrl: String
 )
+
+fun Product.toDomainModel() : ProductEntity {
+    return ProductEntity(
+        currency = currency,
+        price = price,
+        id = id,
+        name = name,
+        description = description,
+        imgUrl = imgUrl
+    )
+}

@@ -2,11 +2,14 @@ package com.represa.adidas.di
 
 import com.represa.adidas.data.Repository
 import com.represa.adidas.data.RepositoryImpl
+import com.represa.adidas.data.database.AppDatabase
+import com.represa.adidas.data.database.ProductDao
 import com.represa.adidas.data.network.client.ProductApiService
 import com.represa.adidas.data.network.client.ReviewApiService
 import com.represa.adidas.ui.viewmodels.ProductViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -20,6 +23,8 @@ private const val BASE_REVIEW_URL_NAME = "BASE_REVIEW_URL"
 private const val BASE_REVIEW_URL = "http://192.168.178.241:3002"
 
 val appModule = module {
+
+    single { AppDatabase.getInstance(androidContext()) }
 
     single {
         Moshi.Builder()
@@ -58,7 +63,7 @@ val appModule = module {
     }
 
     single<Repository> {
-        RepositoryImpl(get())
+        RepositoryImpl(get(), get())
     }
 
     viewModel { ProductViewModel(get()) }
