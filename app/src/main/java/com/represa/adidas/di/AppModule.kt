@@ -31,31 +31,31 @@ val appModule = module {
         BASE_PRODUCT_URL
     }
 
-    /*single(named(BASE_REVIEW_URL_NAME)) {
+    single(named(BASE_REVIEW_URL_NAME)) {
         BASE_REVIEW_URL
-    }*/
+    }
 
-    single {
+    single(named("ProductBuilder")) {
         Retrofit.Builder()
             .baseUrl(get<String>(named(BASE_PRODUCT_URL_NAME)))
             .addConverterFactory(MoshiConverterFactory.create(get()))
             .build()
     }
 
-    /*single {
+    single(named("ReviewBuilder")) {
         Retrofit.Builder()
             .baseUrl(get<String>(named(BASE_REVIEW_URL_NAME)))
             .addConverterFactory(MoshiConverterFactory.create(get()))
             .build()
-    }*/
-
-    single {
-        get<Retrofit>().create(ProductApiService::class.java)
     }
 
-    /*single {
-        get<Retrofit>().create(ReviewApiService::class.java)
-    }*/
+    single {
+        get<Retrofit>(named("ProductBuilder")).create(ProductApiService::class.java)
+    }
+
+    single {
+        get<Retrofit>(named("ReviewBuilder")).create(ReviewApiService::class.java)
+    }
 
     single<Repository> {
         RepositoryImpl(get())
