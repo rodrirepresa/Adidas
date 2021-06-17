@@ -15,7 +15,7 @@ class ProductViewModel(
     var fetchProductsUseCase: FetchProductsUseCase
 ) : ViewModel() {
 
-    //val allProducts = getProductsUseCase.invoke(Unit).asLiveData()
+    val allProducts = getProductsUseCase.invoke(Unit).asLiveData()
 
     fun populateDatabase() {
         viewModelScope.launch(Dispatchers.IO) {
