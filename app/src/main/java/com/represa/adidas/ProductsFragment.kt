@@ -1,12 +1,11 @@
 package com.represa.adidas
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.represa.adidas.databinding.FragmentProductsBinding
 import com.represa.adidas.ui.adapters.ProductsAdapter
 import com.represa.adidas.ui.viewmodels.ProductViewModel
@@ -49,7 +48,10 @@ class ProductsFragment : Fragment() {
     }
 
     private fun createAdapter(): ProductsAdapter {
-        return ProductsAdapter()
+        return ProductsAdapter {
+            val action = ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(it)
+            view?.findNavController()!!.navigate(action)
+        }
     }
 
     private fun setUpRecyclerView(adapter: ProductsAdapter){

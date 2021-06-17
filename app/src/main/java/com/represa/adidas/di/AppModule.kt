@@ -66,6 +66,4 @@ val appModule = module {
         RepositoryImpl(get(), get(), get())
     }
 
-    viewModel { ProductViewModel(get(), get(), get(), get(), get()) }
-
 }

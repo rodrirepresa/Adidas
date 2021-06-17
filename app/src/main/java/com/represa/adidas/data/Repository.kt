@@ -57,11 +57,11 @@ class RepositoryImpl(
         kotlin.runCatching {
             reviewApiService.getReviews(productId)
         }.onSuccess { reviews ->
-            /*appDatabase.productDatabase.insertReviews(
+            appDatabase.productDatabase.insertReviews(
                 reviews.map {
                     it.toDomainModel()
                 }
-            )*/
+            )
         }
     }
 
