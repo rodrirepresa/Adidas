@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.represa.adidas.data.database.entities.ProductEntity
 import com.represa.adidas.data.database.entities.ReviewEntity
 
-@Database(entities = [ProductEntity::class, ReviewEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ProductEntity::class, ReviewEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val productDatabase: ProductDao
@@ -26,7 +26,9 @@ abstract class AppDatabase : RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java,
                         "product.db"
-                    ).build()
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
                     INSTANCE = instance
                 }
                 return instance

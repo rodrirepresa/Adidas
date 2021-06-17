@@ -1,6 +1,7 @@
 package com.represa.adidas
 
 import android.app.Application
+import com.represa.adidas.di.useCaseModule
 import com.represa.adidas.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -17,7 +18,7 @@ class MyApplication : Application() {
             //inject Android context
             androidContext(this@MyApplication)
             // use modules
-            modules(appModule)
+            modules(appModule, useCaseModule)
         }
 
     }

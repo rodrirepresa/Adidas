@@ -1,20 +1,26 @@
 package com.represa.adidas.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.represa.adidas.data.Repository
-import kotlinx.coroutines.flow.collect
+import com.represa.adidas.usecases.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProductViewModel(var repository: Repository) : ViewModel() {
+class ProductViewModel(
+    var getProductUseCase: GetProductUseCase,
+    var getProductsUseCase: GetProductsUseCase,
+    var getReviewsUseCase: GetReviewsUseCase,
+    var createReviewUseCase: CreateReviewUseCase,
+    var fetchProductsUseCase: FetchProductsUseCase
+) : ViewModel() {
 
-    fun test(){
-        viewModelScope.launch {
-            var product = repository.getProducts()
-            product.collect { it ->
-                Log.e("hola:", it.toString())
-            }
+    //val allProducts = getProductsUseCase.invoke(Unit).asLiveData()
+
+    fun populateDatabase() {
+        viewModelScope.launch(Dispatchers.IO) {
+            fetchProductsUseCase.invoke(Unit)
         }
     }
+
 }

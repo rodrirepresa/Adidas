@@ -6,8 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.represa.adidas.data.database.entities.ProductEntity
 import com.represa.adidas.data.database.entities.ReviewEntity
-import com.represa.adidas.data.network.model.Product
-import com.represa.adidas.data.network.model.Review
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -19,11 +17,17 @@ interface ProductDao {
     @Query("SELECT * FROM product")
     fun getProducts() : Flow<List<ProductEntity>>
 
+    @Query("SELECT * FROM product WHERE id = :idProduct")
+    fun getProduct(idProduct : String) : ProductEntity
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertReview(review: ReviewEntity)
 
-    @Query("SELECT * FROM review")
-    fun getReviews() : Flow<List<ReviewEntity>>
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertReviews(review: List<ReviewEntity>)
+
+    @Query("SELECT * FROM review WHERE productId = :productId")
+    fun getReviews(productId: String) : Flow<List<ReviewEntity>>
 
 
 }

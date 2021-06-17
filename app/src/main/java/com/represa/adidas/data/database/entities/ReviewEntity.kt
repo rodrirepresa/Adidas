@@ -9,17 +9,17 @@ import androidx.room.PrimaryKey
 data class ReviewEntity(
     @PrimaryKey
     @NonNull
-    var id: String,
+    var productId: String,
 
     @ColumnInfo
     @NonNull
-    val name: String,
+    val locale: String,
 
     @ColumnInfo
     @NonNull
-    val description: String,
+    val rating: String,
 
     @ColumnInfo
     @NonNull
-    val imgUrl: String
+    val text: String
 )
