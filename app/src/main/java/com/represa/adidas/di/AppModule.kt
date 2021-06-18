@@ -7,6 +7,7 @@ import com.represa.adidas.data.database.ProductDao
 import com.represa.adidas.data.network.client.ProductApiService
 import com.represa.adidas.data.network.client.ReviewApiService
 import com.represa.adidas.ui.viewmodels.ProductViewModel
+import com.represa.adidas.util.ConnectivityLiveData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.koin.android.ext.koin.androidContext
@@ -23,6 +24,8 @@ private const val BASE_REVIEW_URL_NAME = "BASE_REVIEW_URL"
 private const val BASE_REVIEW_URL = "http://192.168.178.241:3002"
 
 val appModule = module {
+
+    single { ConnectivityLiveData(androidContext()) }
 
     single { AppDatabase.getInstance(androidContext()) }
 

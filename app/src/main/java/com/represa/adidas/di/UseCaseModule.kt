@@ -8,7 +8,7 @@ import org.koin.dsl.module
 
 val useCaseModule = module {
 
-    viewModel { ProductViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { ProductViewModel(get(), get(), get(), get(), get(), get(), get()) }
     viewModel { ProductDetailViewModel(get(), get(), get(), get()) }
 
     single { GetProductsUseCase(get()) }

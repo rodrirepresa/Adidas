@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.represa.adidas.usecases.*
+import com.represa.adidas.util.ConnectivityLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
@@ -16,8 +17,11 @@ class ProductViewModel(
     var getReviewsUseCase: GetReviewsUseCase,
     var createReviewUseCase: CreateReviewUseCase,
     var fetchProductsUseCase: FetchProductsUseCase,
-    var getProductsFilteredUseCase: GetProductsFilteredUseCase
+    var getProductsFilteredUseCase: GetProductsFilteredUseCase,
+    private val connectivityLiveData: ConnectivityLiveData
 ) : ViewModel() {
+
+    val internetConection = connectivityLiveData
 
     val allProducts = getProductsUseCase.invoke(Unit).asLiveData()
     private val searchFlow = MutableStateFlow("")
