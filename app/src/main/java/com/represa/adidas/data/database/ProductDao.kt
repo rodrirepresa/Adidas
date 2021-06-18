@@ -17,6 +17,9 @@ interface ProductDao {
     @Query("SELECT * FROM product")
     fun getProducts() : Flow<List<ProductEntity>>
 
+    @Query("SELECT * FROM product WHERE name LIKE '%' || :key || '%' OR description LIKE '%' || :key || '%'")
+    fun getProductsFiltered(key: String) : Flow<List<ProductEntity>>
+
     @Query("SELECT * FROM product WHERE id = :idProduct")
     fun getProduct(idProduct : String) : ProductEntity
 

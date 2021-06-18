@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 interface Repository {
 
     fun getProducts(): Flow<List<ProductEntity>>
+    fun getProductsFiltered(key: String): Flow<List<ProductEntity>>
     fun getProduct(id: String): ProductEntity
     fun getReviews(id: String): Flow<List<ReviewEntity>>
     suspend fun createReview(review: Review)
@@ -28,6 +29,10 @@ class RepositoryImpl(
 
     override fun getProducts(): Flow<List<ProductEntity>> {
         return appDatabase.productDatabase.getProducts()
+    }
+
+    override fun getProductsFiltered(key: String): Flow<List<ProductEntity>> {
+        return appDatabase.productDatabase.getProductsFiltered(key)
     }
 
     override fun getProduct(id: String): ProductEntity {

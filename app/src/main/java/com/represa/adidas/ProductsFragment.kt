@@ -1,6 +1,8 @@
 package com.represa.adidas
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +21,7 @@ class ProductsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private fun startObservers() {
-        productViewModel.allProducts.observe(viewLifecycleOwner,  {
+        productViewModel.productSearched.observe(viewLifecycleOwner,  {
             var adapter = binding.productList.adapter as ProductsAdapter
             adapter.submitList(it)
         })
@@ -34,6 +36,16 @@ class ProductsFragment : Fragment() {
         val root: View = binding.root
 
         startObservers()
+
+        binding.searchText.addTextChangedListener( object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+            override fun afterTextChanged(s: Editable?) {
+                productViewModel.updateSearchQuery(s.toString())
+            }
+        })
 
         //Set up Photo adapter
         val adapter = createAdapter()
