@@ -9,13 +9,15 @@ import android.widget.Toast
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.represa.adidas.databinding.FragmentProductDetailBinding
+import com.represa.adidas.ui.ReviewDialog
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ProductDetailFragment : Fragment() {
 
-    private val productDetailViewModel by viewModel<ProductDetailViewModel>()
+    private val productDetailViewModel by sharedViewModel<ProductDetailViewModel>()
 
     private val safeArgs: ProductDetailFragmentArgs by navArgs()
     private var productId : String = ""
@@ -37,9 +39,20 @@ class ProductDetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
-        startObservers()
         productId = safeArgs.productId
         productDetailViewModel.getProduct(productId)
+        productDetailViewModel.fetchReviews(productId)
+
+        binding.review.setOnClickListener {
+            var dialog = ReviewDialog()
+            var bundle = Bundle()
+            bundle.putString("productId", productId)
+            dialog.arguments = bundle
+            dialog.show(parentFragmentManager, "MyCustomFragment")
+        }
+
+        startObservers()
+
         return binding.root
     }
 }

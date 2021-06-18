@@ -5,6 +5,7 @@ import com.represa.adidas.data.database.entities.ProductEntity
 import com.represa.adidas.data.database.entities.ReviewEntity
 import com.represa.adidas.data.network.client.ProductApiService
 import com.represa.adidas.data.network.client.ReviewApiService
+import com.represa.adidas.data.network.model.Review
 import com.represa.adidas.data.network.model.toDomainModel
 import kotlinx.coroutines.flow.Flow
 
@@ -13,7 +14,7 @@ interface Repository {
     fun getProducts(): Flow<List<ProductEntity>>
     fun getProduct(id: String): ProductEntity
     fun getReviews(id: String): Flow<List<ReviewEntity>>
-    fun createReview(reviewEntity: ReviewEntity)
+    suspend fun createReview(review: Review)
     suspend fun fetchProducts()
     suspend fun fetchReviews(productId: String)
 
@@ -37,8 +38,12 @@ class RepositoryImpl(
         return appDatabase.productDatabase.getReviews(id)
     }
 
-    override fun createReview(reviewEntity: ReviewEntity) {
-        appDatabase.productDatabase.insertReview(reviewEntity)
+    override suspend fun createReview(review: Review) {
+        kotlin.runCatching {
+            reviewApiService.sendReview(review.productId, review)
+        }.onSuccess {
+            appDatabase.productDatabase.insertReview(review.toDomainModel())
+        }
     }
 
     override suspend fun fetchProducts() {

@@ -7,7 +7,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "review")
 data class ReviewEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    var id: Int,
+
+    @ColumnInfo
     @NonNull
     var productId: String,
 
@@ -17,7 +21,7 @@ data class ReviewEntity(
 
     @ColumnInfo
     @NonNull
-    val rating: String,
+    val rating: Int,
 
     @ColumnInfo
     @NonNull
