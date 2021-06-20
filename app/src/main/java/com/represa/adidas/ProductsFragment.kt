@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.represa.adidas.databinding.FragmentProductsBinding
 import com.represa.adidas.ui.adapters.ProductsAdapter
 import com.represa.adidas.ui.viewmodels.ProductViewModel
@@ -46,6 +48,15 @@ class ProductsFragment : Fragment() {
                 productViewModel.updateSearchQuery(s.toString())
             }
         })
+
+        (binding.productList.layoutManager as GridLayoutManager).spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when (position % 9) {
+                    0,1,3,4,5,6 -> 1
+                    else -> 2
+                }
+            }
+        }
 
         //Set up Photo adapter
         val adapter = createAdapter()

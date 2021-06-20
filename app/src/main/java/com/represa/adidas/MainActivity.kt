@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         productViewModel.errorLiveData.observe(this, {
             it?.let {
-                onCreateDialog(it.message).show()
+                //onCreateDialog(it.message).show()
             }
         })
     }
