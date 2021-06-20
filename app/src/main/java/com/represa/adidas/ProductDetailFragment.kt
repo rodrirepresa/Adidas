@@ -74,6 +74,10 @@ class ProductDetailFragment : Fragment() {
             dialog.show(parentFragmentManager, "MyCustomFragment")
         }
 
+        binding.cardview.setOnClickListener{
+            parentFragmentManager.popBackStack()
+        }
+
         //Set up Review adapter
         val adapter = createAdapter()
         setUpRecyclerView(adapter)
