@@ -52,11 +52,11 @@ class MainActivity : AppCompatActivity() {
             builder.setMessage(message)
                 .setPositiveButton("adios",
                     DialogInterface.OnClickListener { dialog, id ->
-                        // FIRE ZE MISSILES!
+                        dialog.dismiss()
                     })
                 .setNegativeButton("terges",
                     DialogInterface.OnClickListener { dialog, id ->
-                        // User cancelled the dialog
+                        dialog.dismiss()
                     })
             // Create the AlertDialog object and return it
             builder.create()
