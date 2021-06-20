@@ -44,35 +44,25 @@ class RepositoryImpl(
     }
 
     override suspend fun createReview(review: Review) {
-        kotlin.runCatching {
-            reviewApiService.sendReview(review.productId, review)
-        }.onSuccess {
-            appDatabase.productDatabase.insertReview(review.toDomainModel())
-        }
+        reviewApiService.sendReview(review.productId, review)
+        appDatabase.productDatabase.insertReview(review.toDomainModel())
     }
 
     override suspend fun fetchProducts() {
-        kotlin.runCatching {
-            productApiService.getProducts()
-        }.onSuccess { products ->
-            appDatabase.productDatabase.insertProducts(
-                products.map {
-                    it.toDomainModel()
-                }
-            )
-        }
+        var products = productApiService.getProducts()
+        appDatabase.productDatabase.insertProducts(
+            products.map {
+                it.toDomainModel()
+            }
+        )
     }
 
     override suspend fun fetchReviews(productId: String) {
-        kotlin.runCatching {
-            reviewApiService.getReviews(productId)
-        }.onSuccess { reviews ->
-            appDatabase.productDatabase.insertReviews(
-                reviews.map {
-                    it.toDomainModel()
-                }
-            )
-        }
+        var reviews = reviewApiService.getReviews(productId)
+        appDatabase.productDatabase.insertReviews(
+            reviews.map {
+                it.toDomainModel()
+            }
+        )
     }
-
 }

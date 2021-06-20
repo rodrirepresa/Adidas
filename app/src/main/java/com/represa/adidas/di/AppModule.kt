@@ -10,6 +10,7 @@ import com.represa.adidas.ui.viewmodels.ProductViewModel
 import com.represa.adidas.util.ConnectivityLiveData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -23,7 +24,13 @@ private const val BASE_PRODUCT_URL = "http://192.168.178.241:3001"
 private const val BASE_REVIEW_URL_NAME = "BASE_REVIEW_URL"
 private const val BASE_REVIEW_URL = "http://192.168.178.241:3002"
 
+const val ERROR_FLOW = "ERROR_FLOW"
+
 val appModule = module {
+
+    single(named(ERROR_FLOW)){
+        MutableStateFlow<Throwable?>(null)
+    }
 
     single { ConnectivityLiveData(androidContext()) }
 
