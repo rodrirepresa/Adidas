@@ -1,11 +1,12 @@
 package com.represa.adidas.ui
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import com.represa.adidas.databinding.ReviewDialogBinding
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,12 +18,25 @@ class ReviewDialog : DialogFragment() {
     private var _binding: ReviewDialogBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        //dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner);
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         _binding = ReviewDialogBinding.inflate(layoutInflater, container, false)
         var productId = arguments?.getString("productId")
         binding.submit.setOnClickListener {
-            productDetailViewModel.createReview(productId, binding.text.text.toString())
+            binding.text.editText?.let {
+                if (it.text.isNotEmpty()) {
+                    productDetailViewModel.createReview(
+                        productId,
+                        binding.text.editText!!.text.toString()
+                    ) { dismiss() }
+                } else {
+                    it.error = "Empty review"
+                }
+            }
         }
         return binding.root
     }
@@ -31,6 +45,6 @@ class ReviewDialog : DialogFragment() {
         super.onStart()
         val width = (resources.displayMetrics.widthPixels * 0.85).toInt()
         val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
-        dialog!!.window?.setLayout(width,height)
+        dialog!!.window?.setLayout(width, height)
     }
 }

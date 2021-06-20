@@ -31,7 +31,7 @@ class ProductDetailFragment : Fragment() {
     private val productDetailViewModel by sharedViewModel<ProductDetailViewModel>()
 
     private val safeArgs: ProductDetailFragmentArgs by navArgs()
-    private var productId : String = ""
+    private var productId: String = ""
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -49,14 +49,8 @@ class ProductDetailFragment : Fragment() {
             }*/
         })
         productDetailViewModel.getReviews(productId).observe(viewLifecycleOwner, {
-            if(!it.isNullOrEmpty()) {
-                var adapter = binding.bottomSheet.recyclerReviews.adapter as ReviewsAdapter
-                adapter.submitList(it)
-            }else{
-                it?.let {
-                    
-                }
-            }
+            var adapter = binding.bottomSheet.recyclerReviews.adapter as ReviewsAdapter
+            adapter.submitList(it)
         })
     }
 

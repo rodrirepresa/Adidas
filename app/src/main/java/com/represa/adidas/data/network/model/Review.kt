@@ -4,7 +4,7 @@ import com.represa.adidas.data.database.entities.ReviewEntity
 
 data class Review(
     val productId: String,
-    val locale: String,
+    val locale: String = "EN",
     val rating: Int,
     val text: String
 )

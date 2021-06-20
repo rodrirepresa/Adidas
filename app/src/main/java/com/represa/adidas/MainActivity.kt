@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         productViewModel.errorLiveData.observe(this, {
             it?.let {
-                //onCreateDialog(it.message).show()
+                onCreateDialog(it.message).show()
             }
         })
     }
@@ -47,18 +47,12 @@ class MainActivity : AppCompatActivity() {
     fun onCreateDialog(error: String?): Dialog {
         var message = error ?: "Something went wrong"
         return this?.let {
-            // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
             builder.setMessage(message)
-                .setPositiveButton("adios",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        dialog.dismiss()
-                    })
-                .setNegativeButton("terges",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        dialog.dismiss()
-                    })
-            // Create the AlertDialog object and return it
+                .setPositiveButton("Close"
+                ) { dialog, id ->
+                    dialog.dismiss()
+                }
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }

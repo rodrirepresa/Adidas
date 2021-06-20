@@ -26,7 +26,7 @@ interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertReview(review: ReviewEntity)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertReviews(review: List<ReviewEntity>)
 
     @Query("SELECT * FROM review WHERE productId = :productId")

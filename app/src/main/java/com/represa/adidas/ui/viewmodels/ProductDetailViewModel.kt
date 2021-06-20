@@ -50,7 +50,7 @@ class ProductDetailViewModel(
         }
     }
 
-    fun createReview(productId: String?, text: String) {
+    fun createReview(productId: String?, text: String, onSucces: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 productId?.let {
@@ -65,6 +65,8 @@ class ProductDetailViewModel(
                 }
             }.onFailure {
                 errorStream.value = Throwable(context.getString(R.string.error_general_exception))
+            }.onSuccess {
+                onSucces.invoke()
             }
         }
     }
