@@ -5,25 +5,21 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "review")
+@Entity(tableName = "review",
+primaryKeys = ["id", "productId", "locale", "rating", "text"])
 data class ReviewEntity(
-    @PrimaryKey(autoGenerate = true)
     @NonNull
     var id: Int,
 
-    @ColumnInfo
     @NonNull
     var productId: String,
 
-    @ColumnInfo
     @NonNull
     val locale: String,
 
-    @ColumnInfo
     @NonNull
     val rating: Int,
 
-    @ColumnInfo
     @NonNull
     val text: String
 )

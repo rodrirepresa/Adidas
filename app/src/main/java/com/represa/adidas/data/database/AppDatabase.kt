@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.represa.adidas.data.database.entities.ProductEntity
 import com.represa.adidas.data.database.entities.ReviewEntity
 
-@Database(entities = [ProductEntity::class, ReviewEntity::class], version = 4, exportSchema = false)
+@Database(entities = [ProductEntity::class, ReviewEntity::class], version = 5, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val productDatabase: ProductDao
