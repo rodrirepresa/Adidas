@@ -14,7 +14,7 @@ fun Review.toDomainModel() : ReviewEntity {
         productId = productId,
         locale = locale,
         rating = rating,
-        text = text,
+        text = text[0] + text.subSequence(1, text.length).toString(),
         id = 0
     )
 }

@@ -8,11 +8,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
+import androidx.palette.graphics.Palette
+import coil.load
 import com.represa.adidas.databinding.FragmentProductDetailBinding
 import com.represa.adidas.ui.ReviewDialog
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import android.graphics.BitmapFactory
+
+import android.graphics.Bitmap
+import android.graphics.Color
+import androidx.navigation.findNavController
+import com.represa.adidas.ui.adapters.ProductsAdapter
+import com.represa.adidas.ui.adapters.ReviewsAdapter
+import java.io.IOException
+import java.net.URL
 
 
 class ProductDetailFragment : Fragment() {
@@ -26,10 +37,26 @@ class ProductDetailFragment : Fragment() {
 
     private fun startObservers() {
         productDetailViewModel.product.observe(viewLifecycleOwner, {
-            binding.name.text = it.name
+            binding.productImage.load(it.imgUrl)
+            binding.bottomSheet.productName.text = it.name.toUpperCase()
+            binding.bottomSheet.productPrice.text = it.price.toString() + it.currency
+            binding.bottomSheet.productDescription.text = it.description
+            /*productDetailViewModel.setUpBackgroundColor(it.imgUrl){ palette ->
+                palette?.let {
+                    var rgb = palette.swatches.first()
+                    //binding.background.setBackgroundColor(rgb.rgb)
+                }
+            }*/
         })
         productDetailViewModel.getReviews(productId).observe(viewLifecycleOwner, {
-            Toast.makeText(context, it.size.toString(), Toast.LENGTH_SHORT).show()
+            if(!it.isNullOrEmpty()) {
+                var adapter = binding.bottomSheet.recyclerReviews.adapter as ReviewsAdapter
+                adapter.submitList(it)
+            }else{
+                it?.let {
+                    
+                }
+            }
         })
     }
 
@@ -43,6 +70,8 @@ class ProductDetailFragment : Fragment() {
         productDetailViewModel.getProduct(productId)
         productDetailViewModel.fetchReviews(productId)
 
+        binding.background.setBackgroundColor(0xFFeceeef.toInt())
+
         binding.review.setOnClickListener {
             var dialog = ReviewDialog()
             var bundle = Bundle()
@@ -51,8 +80,21 @@ class ProductDetailFragment : Fragment() {
             dialog.show(parentFragmentManager, "MyCustomFragment")
         }
 
+        //Set up Review adapter
+        val adapter = createAdapter()
+        setUpRecyclerView(adapter)
+
         startObservers()
 
         return binding.root
     }
+
+    private fun createAdapter(): ReviewsAdapter {
+        return ReviewsAdapter()
+    }
+
+    private fun setUpRecyclerView(adapter: ReviewsAdapter) {
+        binding.bottomSheet.recyclerReviews.adapter = adapter
+    }
+
 }

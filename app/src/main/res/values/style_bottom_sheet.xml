@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BottomSheet -->
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">
+            @style/CustomShapeAppearanceOverlay.MaterialComponents.BottomSheet
+        </item>
+        ....
+    </style>
+
+    <style name="CustomShapeAppearanceOverlay.MaterialComponents.BottomSheet" parent="">
+        <item name="cornerSizeTopRight">30dp</item>
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+</resources>
