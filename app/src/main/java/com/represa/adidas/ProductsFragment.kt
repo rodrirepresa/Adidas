@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.represa.adidas.databinding.FragmentProductsBinding
 import com.represa.adidas.ui.adapters.ProductsAdapter
+import com.represa.adidas.ui.other.GridLayoutItemDecoration
 import com.represa.adidas.ui.viewmodels.ProductViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -23,7 +24,7 @@ class ProductsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private fun startObservers() {
-        productViewModel.productSearched.observe(viewLifecycleOwner,  {
+        productViewModel.productSearched.observe(viewLifecycleOwner, {
             var adapter = binding.productList.adapter as ProductsAdapter
             adapter.submitList(it)
         })
@@ -39,24 +40,31 @@ class ProductsFragment : Fragment() {
 
         startObservers()
 
-        binding.searchText.addTextChangedListener( object : TextWatcher {
+        binding.searchText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
+
             override fun afterTextChanged(s: Editable?) {
                 productViewModel.updateSearchQuery(s.toString())
             }
         })
 
-        (binding.productList.layoutManager as GridLayoutManager).spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return when (position % 9) {
-                    0,1,3,4,5,6 -> 1
-                    else -> 2
+        with(binding.productList) {
+            (layoutManager as GridLayoutManager).spanSizeLookup =
+                object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (position % 9) {
+                            0, 1, 3, 4, 5, 6 -> 1
+                            else -> 2
+                        }
+                    }
                 }
-            }
+            addItemDecoration(GridLayoutItemDecoration(15))
         }
+
 
         //Set up Photo adapter
         val adapter = createAdapter()
@@ -72,12 +80,13 @@ class ProductsFragment : Fragment() {
 
     private fun createAdapter(): ProductsAdapter {
         return ProductsAdapter {
-            val action = ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(it)
+            val action =
+                ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(it)
             view?.findNavController()!!.navigate(action)
         }
     }
 
-    private fun setUpRecyclerView(adapter: ProductsAdapter){
+    private fun setUpRecyclerView(adapter: ProductsAdapter) {
         binding.productList.adapter = adapter
     }
 

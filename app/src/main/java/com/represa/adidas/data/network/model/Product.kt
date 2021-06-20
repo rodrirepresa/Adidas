@@ -17,7 +17,7 @@ fun Product.toDomainModel() : ProductEntity {
         currency = currency,
         price = price,
         id = id,
-        name = name,
+        name = name[0].toUpperCase() + name.subSequence(1,name.length).toString(),
         description = description,
         imgUrl = imgUrl
     )
