@@ -11,10 +11,11 @@ import android.widget.GridLayout
 import androidx.compose.animation.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -125,52 +126,64 @@ class ProductsFragment : Fragment() {
             root.findViewById<ComposeView>(R.id.compose_view).setContent {
                 // In Compose world
                 MyTheme() {
-                    Card(
-                        elevation = 10.dp,
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .wrapContentHeight(),
-                         backgroundColor = Color(0xFFFCFCFF)
+                            .wrapContentHeight()
+                            .background(Color(0xFFFCFCFF))
                     ) {
-                        Column() {
-                            var editable by remember { productViewModel.showTitle }
-                            AnimatedVisibility(visible = editable) {
-                                Text(
-                                    modifier = Modifier.padding(30.dp, 10.dp, 30.dp, 0.dp),
-                                    text = "New\nProducts",
-                                    style = MaterialTheme.typography.h1
-                                )
-                            }
-                            var searchedText = remember { mutableStateOf("") }
-                            var colors = TextFieldDefaults.textFieldColors(
-                                focusedIndicatorColor = Color.Transparent,
-                                disabledIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                                cursorColor = Color.Gray,
-                            )
-                            OutlinedTextField(
-                                colors = colors,
-                                textStyle = MaterialTheme.typography.body1,
-                                maxLines = 1,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(30.dp, 10.dp, 30.dp, 10.dp)
-                                    .height(50.dp)
-                                    .background(Color.White, MaterialTheme.shapes.small),
-                                value = searchedText.value,
-                                onValueChange = { it ->
-                                    editable = false
-                                    searchedText.value = it
-                                    productViewModel.updateSearchQuery(it)
-                                },
-                                placeholder = {
-                                    Text(
-                                        text = "Search articles and description",
-                                        style = MaterialTheme.typography.body1,
-                                    )
-                                }
+                        var editable by remember { productViewModel.showTitle }
+                        AnimatedVisibility(visible = editable) {
+                            Text(
+                                modifier = Modifier.padding(30.dp, 20.dp, 30.dp, 0.dp),
+                                text = "New\nProducts",
+                                style = MaterialTheme.typography.h1,
+                                color = MaterialTheme.colors.primary
                             )
                         }
+                        var searchedText = remember { mutableStateOf("") }
+                        var colors = TextFieldDefaults.textFieldColors(
+                            focusedIndicatorColor = Color.Transparent,
+                            disabledIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent,
+                            cursorColor = Color.Gray,
+                            textColor = Color.DarkGray
+                        )
+                        OutlinedTextField(
+                            trailingIcon = {
+                                Icon(
+                                    Icons.Filled.RemoveCircleOutline,
+                                    "",
+                                    modifier = Modifier
+                                        .clickable {
+                                            searchedText.value = ""
+                                            productViewModel.updateSearchQuery("")
+                                        }
+                                        .size(17.dp)
+                                )
+                            },
+                            colors = colors,
+                            textStyle = MaterialTheme.typography.body1,
+                            maxLines = 1,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(30.dp, 10.dp, 30.dp, 10.dp)
+                                .height(50.dp)
+                                .background(Color.White, MaterialTheme.shapes.small),
+                            value = searchedText.value,
+                            onValueChange = { it ->
+                                editable = false
+                                searchedText.value = it
+                                productViewModel.updateSearchQuery(it)
+                            },
+                            placeholder = {
+                                Text(
+                                    text = "Search articles and description",
+                                    style = MaterialTheme.typography.body1,
+                                    color = Color.LightGray
+                                )
+                            }
+                        )
                     }
                 }
             }

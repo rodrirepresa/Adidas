@@ -20,6 +20,7 @@ val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
+val MainColor = Color.Black
 
 val fonts = FontFamily(
     Font(R.font.montserratregular, weight = FontWeight.Normal),
@@ -40,7 +41,7 @@ val Typography = Typography(
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
+    primary = MainColor,
     primaryVariant = Purple700,
     secondary = Teal200,
     background = Color.White
