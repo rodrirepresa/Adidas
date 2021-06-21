@@ -40,6 +40,15 @@ class ProductDetailFragment : Fragment() {
         productDetailViewModel.getReviews(productId).observe(viewLifecycleOwner, {
             var adapter = binding.bottomSheet.recyclerReviews.adapter as ReviewsAdapter
             adapter.submitList(it)
+            if (it.isEmpty()) {
+                binding.bottomSheet.noReviews.visibility = View.VISIBLE
+                binding.bottomSheet.writeReview.visibility = View.VISIBLE
+                binding.bottomSheet.textReview.visibility = View.GONE
+            } else {
+                binding.bottomSheet.noReviews.visibility = View.GONE
+                binding.bottomSheet.writeReview.visibility = View.GONE
+                binding.bottomSheet.textReview.visibility = View.VISIBLE
+            }
         })
     }
 
@@ -56,14 +65,14 @@ class ProductDetailFragment : Fragment() {
         binding.background.setBackgroundColor(0xFFeceeef.toInt())
 
         binding.review.setOnClickListener {
-            var dialog = ReviewDialogFragment()
-            var bundle = Bundle()
-            bundle.putString("productId", productId)
-            dialog.arguments = bundle
-            dialog.show(parentFragmentManager, "MyCustomFragment")
+            openReviewDialog()
         }
 
-        binding.cardview.setOnClickListener{
+        binding.bottomSheet.writeReview.setOnClickListener{
+            openReviewDialog()
+        }
+
+        binding.cardview.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
@@ -74,6 +83,14 @@ class ProductDetailFragment : Fragment() {
         startObservers()
 
         return binding.root
+    }
+
+    private fun openReviewDialog() {
+        var dialog = ReviewDialogFragment()
+        var bundle = Bundle()
+        bundle.putString("productId", productId)
+        dialog.arguments = bundle
+        dialog.show(parentFragmentManager, "MyCustomFragment")
     }
 
     private fun createAdapter(): ReviewsAdapter {
