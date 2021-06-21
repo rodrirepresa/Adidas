@@ -26,6 +26,7 @@ import com.represa.adidas.ui.viewmodels.ProductViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.represa.adidas.R
