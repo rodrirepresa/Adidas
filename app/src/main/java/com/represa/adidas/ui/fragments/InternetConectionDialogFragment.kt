@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.inflate
 import android.view.ViewGroup
+import android.view.Window
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -39,6 +40,7 @@ class InternetConectionDialogFragment : DialogFragment() {
     ): View? {
         dialog!!.window?.setBackgroundDrawable(ColorDrawable(0xE6FFFFFF.toInt()));
         _binding = InternetConnectionDialogBinding.inflate(layoutInflater, container, false)
+        isCancelable = false
         initCompose()
         return binding.root
     }
@@ -48,7 +50,10 @@ class InternetConectionDialogFragment : DialogFragment() {
         val width = (resources.displayMetrics.widthPixels)
         val height = (resources.displayMetrics.heightPixels)
         dialog!!.window?.setLayout(width, height)
+
     }
+
+
 
     private fun initCompose() {
         binding.apply {
