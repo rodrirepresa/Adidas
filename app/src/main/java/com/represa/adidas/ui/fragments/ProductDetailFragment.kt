@@ -1,36 +1,25 @@
-package com.represa.adidas
+package com.represa.adidas.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
-import androidx.palette.graphics.Palette
 import coil.load
 import com.represa.adidas.databinding.FragmentProductDetailBinding
-import com.represa.adidas.ui.ReviewDialog
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import android.graphics.BitmapFactory
 
-import android.graphics.Bitmap
-import android.graphics.Color
-import androidx.navigation.findNavController
-import com.represa.adidas.ui.adapters.ProductsAdapter
 import com.represa.adidas.ui.adapters.ReviewsAdapter
-import java.io.IOException
-import java.net.URL
 
 
 class ProductDetailFragment : Fragment() {
 
     private val productDetailViewModel by sharedViewModel<ProductDetailViewModel>()
 
-    private val safeArgs: ProductDetailFragmentArgs by navArgs()
+    private val safeArgs: com.represa.adidas.ui.fragments.ProductDetailFragmentArgs by navArgs()
     private var productId: String = ""
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
@@ -67,7 +56,7 @@ class ProductDetailFragment : Fragment() {
         binding.background.setBackgroundColor(0xFFeceeef.toInt())
 
         binding.review.setOnClickListener {
-            var dialog = ReviewDialog()
+            var dialog = ReviewDialogFragment()
             var bundle = Bundle()
             bundle.putString("productId", productId)
             dialog.arguments = bundle

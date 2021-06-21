@@ -1,4 +1,4 @@
-package com.represa.adidas.ui
+package com.represa.adidas.ui.fragments
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,7 +11,7 @@ import com.represa.adidas.databinding.ReviewDialogBinding
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ReviewDialog : DialogFragment() {
+class ReviewDialogFragment : DialogFragment() {
 
     private val productDetailViewModel by viewModel<ProductDetailViewModel>()
 

@@ -10,6 +10,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.represa.adidas.databinding.ActivityMainBinding
+import com.represa.adidas.ui.fragments.InternetConectionDialogFragment
+import com.represa.adidas.ui.fragments.ReviewDialogFragment
 import com.represa.adidas.ui.viewmodels.ProductViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,12 +21,24 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val productViewModel: ProductViewModel by viewModel()
+    private var internetDialog: InternetConectionDialogFragment? = null
 
     private fun startObserver() {
         productViewModel.internetConection.observe(this, {
             when (it) {
-                true -> Toast.makeText(applicationContext, "HOLA", Toast.LENGTH_SHORT).show()
-                false -> Toast.makeText(applicationContext, "ADIOS", Toast.LENGTH_SHORT).show()
+                true -> {
+                    if (internetDialog != null && internetDialog!!.isVisible) {
+                        internetDialog!!.dismiss()
+                    }
+                }
+                false -> {
+                    if (internetDialog == null) {
+                        internetDialog = InternetConectionDialogFragment()
+                        internetDialog!!.show(supportFragmentManager, "MyCustomInternetFragment")
+                    } else {
+                        internetDialog!!.show(supportFragmentManager, "MyCustomInternetFragment")
+                    }
+                }
             }
         })
 
@@ -52,7 +66,8 @@ class MainActivity : AppCompatActivity() {
         return this?.let {
             val builder = AlertDialog.Builder(it)
             builder.setMessage(message)
-                .setPositiveButton("Close"
+                .setPositiveButton(
+                    "Close"
                 ) { dialog, id ->
                     dialog.dismiss()
                 }

@@ -1,15 +1,11 @@
-package com.represa.adidas
+package com.represa.adidas.ui.fragments
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import androidx.compose.animation.*
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,33 +14,23 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.semantics.SemanticsProperties.ImeAction
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.represa.adidas.databinding.FragmentProductsBinding
 import com.represa.adidas.ui.adapters.ProductsAdapter
-import com.represa.adidas.ui.other.GridLayoutItemDecoration
 import com.represa.adidas.ui.viewmodels.ProductViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
+import com.represa.adidas.R
 import com.represa.adidas.ui.MyTheme
-import kotlinx.coroutines.flow.asStateFlow
+import com.represa.adidas.ui.other.GridLayoutItemDecoration
 
 class ProductsFragment : Fragment() {
 
@@ -111,7 +97,9 @@ class ProductsFragment : Fragment() {
     private fun createAdapter(): ProductsAdapter {
         return ProductsAdapter {
             val action =
-                ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(it)
+                ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(
+                    it
+                )
             view?.findNavController()!!.navigate(action)
         }
     }
