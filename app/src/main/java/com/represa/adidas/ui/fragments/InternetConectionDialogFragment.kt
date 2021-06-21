@@ -53,8 +53,6 @@ class InternetConectionDialogFragment : DialogFragment() {
 
     }
 
-
-
     private fun initCompose() {
         binding.apply {
             root.findViewById<ComposeView>(R.id.compose_view).setContent {

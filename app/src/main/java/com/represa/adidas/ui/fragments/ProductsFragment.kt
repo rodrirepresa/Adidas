@@ -41,6 +41,15 @@ class ProductsFragment : Fragment() {
 
     private fun startObservers() {
         productViewModel.productSearched.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
+                binding.noResults.visibility = View.GONE
+                binding.yourSearch.visibility = View.GONE
+            } else {
+                binding.noResults.visibility = View.VISIBLE
+                binding.yourSearch.text =
+                    "Your search " + productViewModel.searchFlow.value + " did not match any product"
+                binding.yourSearch.visibility = View.VISIBLE
+            }
             var adapter = binding.productList.adapter as ProductsAdapter
             adapter.submitList(it)
         })
@@ -120,8 +129,8 @@ class ProductsFragment : Fragment() {
                             .wrapContentHeight()
                             .background(Color(0xFFFCFCFF))
                     ) {
-                        var editable by remember { productViewModel.showTitle }
-                        AnimatedVisibility(visible = editable) {
+                        var showTitle by remember { productViewModel.showTitle }
+                        AnimatedVisibility(visible = showTitle) {
                             Text(
                                 modifier = Modifier.padding(30.dp, 20.dp, 30.dp, 0.dp),
                                 text = "New\nProducts",
@@ -160,9 +169,11 @@ class ProductsFragment : Fragment() {
                                 .background(Color.White, MaterialTheme.shapes.small),
                             value = searchedText.value,
                             onValueChange = { it ->
-                                editable = false
-                                searchedText.value = it
-                                productViewModel.updateSearchQuery(it)
+                                showTitle = false
+                                if (it.length < 30) {
+                                    searchedText.value = it
+                                    productViewModel.updateSearchQuery(it)
+                                }
                             },
                             placeholder = {
                                 Text(
