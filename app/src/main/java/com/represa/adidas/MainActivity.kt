@@ -55,6 +55,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+
+
     override fun onStart() {
         super.onStart()
         productViewModel.populateDatabase()

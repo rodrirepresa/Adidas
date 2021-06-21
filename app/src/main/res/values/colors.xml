@@ -11,4 +11,5 @@
     <color name="backgroundProducts">#FFe9ebed</color>
     <color name="backgroundApp">#FFFCFCFF</color>
     <color  name="mainColor">#00268b</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#696969</color>
 </resources>

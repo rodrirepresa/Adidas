@@ -28,6 +28,8 @@ class ProductDetailViewModel(
     val product: LiveData<ProductEntity>
         get() = _product
 
+    private var rating = 3
+
     fun getReviews(productId: String) = getReviewsUseCase.invoke(productId).asLiveData()
 
     fun getProduct(id: String) {
@@ -58,7 +60,7 @@ class ProductDetailViewModel(
                         Review(
                             productId = productId,
                             locale = "EN",
-                            rating = 5,
+                            rating = rating,
                             text = text
                         )
                     )
@@ -69,6 +71,10 @@ class ProductDetailViewModel(
                 onSucces.invoke()
             }
         }
+    }
+
+    fun setRating(rate: Int){
+        rating = rate
     }
 
     fun setUpBackgroundColor(imageUrl: String, onSuccess: (palette: Palette?) -> Unit) {

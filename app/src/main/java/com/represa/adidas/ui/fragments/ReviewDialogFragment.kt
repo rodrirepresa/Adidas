@@ -3,12 +3,25 @@ package com.represa.adidas.ui.fragments
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.WifiOff
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.style.TextAlign
 import androidx.fragment.app.DialogFragment
+import com.represa.adidas.R
 import com.represa.adidas.databinding.ReviewDialogBinding
+import com.represa.adidas.ui.MyTheme
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
+import com.represa.adidas.util.Rate
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReviewDialogFragment : DialogFragment() {
@@ -38,6 +51,20 @@ class ReviewDialogFragment : DialogFragment() {
                 }
             }
         }
+
+        binding.close.setOnClickListener {
+            dismiss()
+        }
+
+        dialog!!.window!!.setGravity(Gravity.CENTER_HORIZONTAL)
+        var p = dialog!!.window!!.attributes
+        p.width = ViewGroup.LayoutParams.MATCH_PARENT
+        p.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
+        p.y = -200
+        dialog!!.window!!.attributes = p
+
+        initCompose()
+
         return binding.root
     }
 
@@ -46,5 +73,16 @@ class ReviewDialogFragment : DialogFragment() {
         val width = (resources.displayMetrics.widthPixels * 0.85).toInt()
         val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
         dialog!!.window?.setLayout(width, height)
+    }
+
+    private fun initCompose() {
+        binding.apply {
+            root.findViewById<ComposeView>(R.id.compose_view).setContent {
+                MyTheme() {
+                    Rate(productDetailViewModel)
+                }
+            }
+
+        }
     }
 }
