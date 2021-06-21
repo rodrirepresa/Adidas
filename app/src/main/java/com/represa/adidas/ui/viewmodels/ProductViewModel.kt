@@ -1,6 +1,7 @@
 package com.represa.adidas.ui.viewmodels
 
 import android.content.Context
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -32,7 +33,9 @@ class ProductViewModel(
 
     val internetConection = connectivityLiveData
 
-    private val searchFlow = MutableStateFlow("")
+    var showTitle = mutableStateOf(true)
+
+    var searchFlow = MutableStateFlow("")
 
     val productSearched = searchFlow.debounce(200L).flatMapLatest { search ->
         getProductsFilteredUseCase.invoke(search)
@@ -43,7 +46,8 @@ class ProductViewModel(
             runCatching {
                 fetchProductsUseCase.invoke(Unit)
             }.onFailure {
-                errorStream.value = GeneralException(context.getString(R.string.error_api_exception))
+                errorStream.value =
+                    GeneralException(context.getString(R.string.error_api_exception))
             }
         }
     }

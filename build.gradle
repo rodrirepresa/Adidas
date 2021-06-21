@@ -7,6 +7,7 @@ buildscript {
         lifecycle_version = "2.2.0"
         room_version = "2.3.0"
         nav_version = "2.3.5"
+        compose_version = "beta09"
     }
     repositories {
         google()
@@ -15,7 +16,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.0-alpha11"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         classpath "io.insert-koin:koin-gradle-plugin:$koin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"

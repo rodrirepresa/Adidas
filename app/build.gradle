@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -31,9 +32,15 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        useIR = true
     }
     buildFeatures {
         viewBinding true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerVersion = "1.5.10"
+        kotlinCompilerExtensionVersion = "1.0.0-beta09"
     }
 }
 
@@ -85,4 +92,20 @@ dependencies {
 
     //Palette
     implementation 'androidx.palette:palette-ktx:1.0.0'
+
+    //Compose
+    implementation("androidx.compose.ui:ui:1.0.0-$compose_version")
+    implementation("androidx.activity:activity-compose:$compose_version")
+    // Tooling support (Previews, etc.)
+    implementation("androidx.compose.ui:ui-tooling:1.0.0-$compose_version")
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation("androidx.compose.foundation:foundation:1.0.0-$compose_version")
+    // Material Design
+    implementation("androidx.compose.material:material:1.0.0-$compose_version")
+    // Material design icons
+    implementation("androidx.compose.material:material-icons-core:1.0.0-$compose_version")
+    implementation("androidx.compose.material:material-icons-extended:1.0.0-$compose_version")
+    // Integration with observables
+    implementation("androidx.compose.runtime:runtime-livedata:1.0.0-$compose_version")
+
 }
