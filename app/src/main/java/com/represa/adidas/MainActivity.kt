@@ -52,7 +52,9 @@ class MainActivity : AppCompatActivity() {
 
         productViewModel.errorLiveData.observe(this, {
             it?.let {
-                onCreateDialog(it.message).show()
+                if (internetDialog == null || !internetDialog!!.isVisible) {
+                    onCreateDialog(it.message).show()
+                }
             }
         })
     }
@@ -62,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
-
 
 
     override fun onStart() {
