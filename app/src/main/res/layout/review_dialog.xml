@@ -7,7 +7,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
 
         <TextView
             android:id="@+id/title"
@@ -37,6 +40,7 @@
             app:layout_constraintTop_toBottomOf="@id/title">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:maxLines="3"
                 android:maxLength="100"
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/dark_gray"
