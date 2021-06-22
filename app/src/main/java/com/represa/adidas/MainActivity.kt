@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.represa.adidas.databinding.ActivityMainBinding
 import com.represa.adidas.ui.fragments.InternetConectionDialogFragment
 import com.represa.adidas.ui.fragments.ReviewDialogFragment
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         productViewModel.errorLiveData.observe(this, {
             it?.let {
