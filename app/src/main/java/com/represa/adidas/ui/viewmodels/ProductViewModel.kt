@@ -41,9 +41,6 @@ class ProductViewModel(
         getProductsFilteredUseCase.invoke(search)
     }.asLiveData()
 
-    init {
-    }
-
     fun populateDatabase() {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
