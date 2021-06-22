@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/productsFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/productsFragment"
@@ -26,5 +26,18 @@
         <argument
             android:name="productId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.represa.adidas.ui.fragments.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_productsFragment"
+            app:destination="@id/productsFragment"
+            app:enterAnim="@anim/slide_in_splash"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_splash" />
     </fragment>
 </navigation>

@@ -2,19 +2,14 @@ package com.represa.adidas
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.represa.adidas.databinding.ActivityMainBinding
 import com.represa.adidas.ui.fragments.InternetConectionDialogFragment
-import com.represa.adidas.ui.fragments.ReviewDialogFragment
 import com.represa.adidas.ui.viewmodels.ProductViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import androidx.fragment.app.Fragment
+import com.represa.adidas.ui.fragments.ProductsFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -84,5 +79,20 @@ class MainActivity : AppCompatActivity() {
                 }
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
+    }
+
+    override fun onBackPressed() {
+        getForegroundFragment()?.let {
+            when(it){
+                is ProductsFragment -> { }
+                else -> super.onBackPressed()
+            }
+        }
+
+    }
+
+    private fun getForegroundFragment(): Fragment? {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        return navHostFragment?.childFragmentManager?.fragments?.get(0)
     }
 }
