@@ -41,6 +41,9 @@ class ProductViewModel(
         getProductsFilteredUseCase.invoke(search)
     }.asLiveData()
 
+    init {
+    }
+
     fun populateDatabase() {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
@@ -54,6 +57,13 @@ class ProductViewModel(
 
     fun updateSearchQuery(key: String) {
         searchFlow.value = key
+    }
+
+    fun checkFirstConnection(showDialog: () -> Unit) {
+        var connection = connectivityLiveData.checkConnection()
+        if (!connection) {
+            showDialog.invoke()
+        }
     }
 
 }
