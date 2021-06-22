@@ -67,35 +67,63 @@ class InternetConectionDialogFragment : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        dismissAnimation.value = false
+        dismissAnimation.value = animationState.ENTER
     }
 
     override fun dismiss() {
-        dismissAnimation.value = true
+        dismissAnimation.value = animationState.EXIT
     }
 
-    private val dismissAnimation = mutableStateOf(false)
+    private val dismissAnimation = mutableStateOf(animationState.IDLE)
+
+    private enum class animationState {
+        IDLE,
+        ENTER,
+        EXIT
+    }
 
     @ExperimentalAnimationApi
     private fun initCompose() {
         binding.apply {
             root.findViewById<ComposeView>(R.id.compose_view).setContent {
                 MyTheme() {
-                    val scale = remember { Animatable(1f) }
-                    if (dismissAnimation.value) {
-                        LaunchedEffect(scale) {
-                            scale.animateTo(
-                                targetValue = 2f,
-                                animationSpec = tween(durationMillis = 200, easing = LinearEasing)
-                            )
-                            super.dismiss()
+                    val scale = remember { Animatable(0f) }
+                    when (dismissAnimation.value) {
+                        animationState.ENTER -> {
+                            LaunchedEffect(scale) {
+                                scale.animateTo(
+                                    targetValue = 1f,
+                                    animationSpec = tween(
+                                        durationMillis = 200,
+                                        easing = LinearEasing
+                                    )
+                                )
+                            }
                         }
+                        animationState.EXIT -> {
+                            LaunchedEffect(scale) {
+                                scale.animateTo(
+                                    targetValue = 2f,
+                                    animationSpec = tween(
+                                        durationMillis = 200,
+                                        easing = LinearEasing
+                                    )
+                                )
+                                super.dismiss()
+                            }
+                        }
+
+                    }
+                    var alpha = if (dismissAnimation.value == animationState.ENTER) {
+                        scale.value
+                    } else {
+                        2 - scale.value
                     }
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .scale(scale.value)
-                            .alpha(2 - scale.value),
+                            .alpha(alpha),
                         contentAlignment = Alignment.Center,
                     ) {
                         Column(
