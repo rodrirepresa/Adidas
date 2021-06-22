@@ -6,6 +6,7 @@ import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
+import android.net.NetworkInfo
 import android.net.NetworkRequest
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -22,6 +23,11 @@ class ConnectivityLiveData(context: Context) : LiveData<Boolean>() {
     private val connectivityManager =
         context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
+
+    fun checkConnection(): Boolean {
+        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+        return activeNetwork?.isConnectedOrConnecting == true
+    }
 
     override fun onActive() {
         networkCallback = createNetworkCallback()
