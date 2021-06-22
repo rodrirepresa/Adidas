@@ -28,7 +28,7 @@ class ProductDetailViewModel(
     val product: LiveData<ProductEntity>
         get() = _product
 
-    private var rating = 3
+    private var rating : Int? = null
 
     fun getReviews(productId: String) = getReviewsUseCase.invoke(productId).asLiveData()
 
@@ -53,22 +53,27 @@ class ProductDetailViewModel(
     }
 
     fun createReview(productId: String?, text: String, onSucces: () -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            runCatching {
-                productId?.let {
-                    createReviewUseCase.invoke(
-                        Review(
-                            productId = productId,
-                            locale = "EN",
-                            rating = rating,
-                            text = text
+        if(rating == null){
+            errorStream.value = Throwable("Please, select a product rating")
+        }else {
+            viewModelScope.launch(Dispatchers.IO) {
+                runCatching {
+                    productId?.let {
+                        createReviewUseCase.invoke(
+                            Review(
+                                productId = productId,
+                                locale = "EN",
+                                rating = rating!!,
+                                text = text
+                            )
                         )
-                    )
+                    }
+                }.onFailure {
+                    errorStream.value =
+                        Throwable(context.getString(R.string.error_general_exception))
+                }.onSuccess {
+                    onSucces.invoke()
                 }
-            }.onFailure {
-                errorStream.value = Throwable(context.getString(R.string.error_general_exception))
-            }.onSuccess {
-                onSucces.invoke()
             }
         }
     }

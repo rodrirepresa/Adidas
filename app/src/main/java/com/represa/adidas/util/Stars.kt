@@ -1,5 +1,6 @@
 package com.represa.adidas.util
 
+
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,93 +9,89 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarOutline
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun Rate(productDetailViewModel: ProductDetailViewModel) {
-    var starData = remember { StarData() }
-    Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.height(40.dp)) {
+fun RateStars(productDetailViewModel: ProductDetailViewModel) {
+    var starData = remember { StarData(productDetailViewModel) }
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(0.dp, 5.dp, 0.dp, 10.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.Bottom
+    ) {
         for (i in 1..5) {
-            star(position = i, starData = starData, productDetailViewModel = productDetailViewModel)
+            star(position = i, starData = starData)
         }
     }
 }
 
 @Composable
-fun star(position: Int, starData: StarData, productDetailViewModel: ProductDetailViewModel) {
+fun star(position: Int, starData: StarData) {
 
-    var currentState by remember {
-        mutableStateOf(StarState.IDLE)
-    }
-    val transition = updateTransition(currentState, label = "")
-
-    val starAlpha by transition.animateFloat(
-        transitionSpec = {
-            when {
-                StarState.IDLE isTransitioningTo StarState.Selected ->
-                    tween(1000)
-                else ->
-                    snap(0)
-            }
-        }
-    ) { state ->
-        when (state) {
-            StarState.IDLE -> 0f
-            StarState.Selected -> 1f
-        }
-    }
-
-    currentState = if (starData.starList.contains(position)) {
-        StarState.Selected
-    } else {
-        StarState.IDLE
-    }
-
-
-    var sizeAnimation = remember { Animatable(25f) }
+    var scale = remember { Animatable(1f) }
     var coroutineScope = rememberCoroutineScope()
 
-    Box(modifier = Modifier.padding(10.dp)) {
-        Icon(Icons.Default.StarOutline, contentDescription = "", modifier = Modifier
-            .size(sizeAnimation.value.dp)
-            .clickable { starData.click(position) })
+    var showFilled = starData.starList.contains(position)
 
-        Icon(Icons.Default.Star, contentDescription = "", modifier = Modifier
-            .size(sizeAnimation.value.dp)
+
+    Box(modifier = Modifier.padding(10.dp,0.dp)) {
+        Icon(Icons.Default.StarOutline, contentDescription = "", modifier = Modifier
+            .scale(scale.value)
             .clickable {
                 starData.click(position)
-                productDetailViewModel.setRating(position)
+                starData.click(position)
                 coroutineScope.launch {
-                    sizeAnimation.animateTo(
-                        targetValue = 30f,
+                    scale.animateTo(
+                        targetValue = 1.7f,
                         animationSpec = tween(durationMillis = 200, easing = LinearEasing)
                     )
-                    sizeAnimation.animateTo(
-                        targetValue = 25f,
-                        animationSpec = tween(durationMillis = 500, easing = LinearEasing)
+                    scale.animateTo(
+                        targetValue = 1f,
+                        animationSpec = tween(durationMillis = 200, easing = LinearEasing)
                     )
                 }
-            }
-            .alpha(starAlpha)
-        )
+            })
+
+        if (showFilled) {
+            Icon(Icons.Default.Star, contentDescription = "", modifier = Modifier
+                .scale(scale.value)
+                .clickable {
+                    starData.click(position)
+                    coroutineScope.launch {
+                        scale.animateTo(
+                            targetValue = 1.7f,
+                            animationSpec = tween(
+                                durationMillis = 200,
+                                easing = LinearEasing
+                            )
+                        )
+                        scale.animateTo(
+                            targetValue = 1f,
+                            animationSpec = tween(
+                                durationMillis = 200,
+                                easing = LinearEasing
+                            )
+                        )
+                    }
+                }
+            )
+        }
     }
 }
 
-private enum class StarState {
-    Selected,
-    IDLE
-}
+class StarData(var productDetailViewModel: ProductDetailViewModel) {
+    var starList = mutableStateListOf<Int>()
 
-class StarData() {
-    var starList = mutableStateListOf<Int>(1,2,3)
-
-    fun click(star: Int) {
+    fun click(position: Int) {
+        productDetailViewModel.setRating(position)
         var list = mutableListOf<Int>()
-        for (i in 1..star) {
+        for (i in 1..position) {
             list.add(i)
         }
         starList.clear()

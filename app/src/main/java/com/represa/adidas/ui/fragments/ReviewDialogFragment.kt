@@ -21,7 +21,7 @@ import com.represa.adidas.R
 import com.represa.adidas.databinding.ReviewDialogBinding
 import com.represa.adidas.ui.MyTheme
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
-import com.represa.adidas.util.Rate
+import com.represa.adidas.util.RateStars
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ReviewDialogFragment : DialogFragment() {
@@ -52,10 +52,6 @@ class ReviewDialogFragment : DialogFragment() {
             }
         }
 
-        binding.close.setOnClickListener {
-            dismiss()
-        }
-
         dialog!!.window!!.setGravity(Gravity.CENTER_HORIZONTAL)
         var p = dialog!!.window!!.attributes
         p.width = ViewGroup.LayoutParams.MATCH_PARENT
@@ -79,7 +75,7 @@ class ReviewDialogFragment : DialogFragment() {
         binding.apply {
             root.findViewById<ComposeView>(R.id.compose_view).setContent {
                 MyTheme() {
-                    Rate(productDetailViewModel)
+                    RateStars(productDetailViewModel)
                 }
             }
 
