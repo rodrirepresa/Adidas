@@ -28,6 +28,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.fragment.app.commit
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.represa.adidas.R
@@ -110,7 +111,7 @@ class ProductsFragment : Fragment() {
                 ProductsFragmentDirections.actionProductsFragmentToProductDetailFragment(
                     it
                 )
-            view?.findNavController()!!.navigate(action)
+            this.findNavController().navigate(action)
         }
     }
 

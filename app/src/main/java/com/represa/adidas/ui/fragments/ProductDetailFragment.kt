@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.represa.adidas.databinding.FragmentProductDetailBinding
@@ -74,7 +75,7 @@ class ProductDetailFragment : Fragment() {
         }
 
         binding.cardview.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            this.findNavController().popBackStack()
         }
 
         //Set up Review adapter
