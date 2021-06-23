@@ -5,8 +5,10 @@ This repo contains my Adidas Amsterdam assignment.
 ## 🛠 Installation
 
 ```bash
-Clone the repo, open the project in Android Studio, hit "Run". Done!
+Download AS Artic Fox Preview Version https://developer.android.com/studio/preview
+Clone the repo, open the project in the Android Studio downloaded, hit "Run". Done!
 Don't forget to set the API url in the AppModule.kt if the server doesn't work ;)
+(More info in the file)
 ```
 
 ## 🏯 Architecture Overview
