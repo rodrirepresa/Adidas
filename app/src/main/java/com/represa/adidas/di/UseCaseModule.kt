@@ -2,6 +2,7 @@ package com.represa.adidas.di
 
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
 import com.represa.adidas.ui.viewmodels.ProductViewModel
+import com.represa.adidas.ui.viewmodels.SplashViewModel
 import com.represa.adidas.usecases.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,6 +21,15 @@ val useCaseModule = module {
             get(named(ERROR_FLOW))
         )
     }
+
+    viewModel {
+        SplashViewModel(
+            androidContext(),
+            get(),
+            get(named(ERROR_FLOW))
+        )
+    }
+
     viewModel {
         ProductDetailViewModel(
             androidContext(),

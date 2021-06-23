@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
         productViewModel.checkFirstConnection {
             internetDialog = InternetConectionDialogFragment()
             internetDialog!!.show(supportFragmentManager, "MyCustomInternetFragment")
@@ -84,7 +82,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        productViewModel.populateDatabase()
         startObserver()
     }
 
