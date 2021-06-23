@@ -7,6 +7,8 @@ import androidx.lifecycle.*
 import androidx.palette.graphics.Palette
 import com.represa.adidas.R
 import com.represa.adidas.data.database.entities.ProductEntity
+import com.represa.adidas.data.exception.GeneralException
+import com.represa.adidas.data.exception.ProductDetailException
 import com.represa.adidas.data.network.model.Review
 import com.represa.adidas.usecases.*
 import kotlinx.coroutines.Dispatchers
@@ -37,17 +39,18 @@ class ProductDetailViewModel(
             runCatching {
                 _product.postValue(getProductUseCase.invoke(id))
             }.onFailure {
-                errorStream.value = Throwable(context.getString(R.string.error_general_exception))
+                errorStream.value = ProductDetailException(context.getString(R.string.error_general_exception))
             }
         }
+        fetchReviews(id)
     }
 
-    fun fetchReviews(productId: String) {
+    private fun fetchReviews(productId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 fetchReviewsUseCase.invoke(productId)
             }.onFailure {
-                errorStream.value = Throwable(context.getString(R.string.error_api_exception))
+                errorStream.value = ProductDetailException(context.getString(R.string.error_api_exception))
             }
         }
     }
@@ -70,7 +73,7 @@ class ProductDetailViewModel(
                     }
                 }.onFailure {
                     errorStream.value =
-                        Throwable(context.getString(R.string.error_general_exception))
+                        GeneralException(context.getString(R.string.error_general_exception))
                 }.onSuccess {
                     onSucces.invoke()
                 }
@@ -80,24 +83,5 @@ class ProductDetailViewModel(
 
     fun setRating(rate: Int){
         rating = rate
-    }
-
-    fun setUpBackgroundColor(imageUrl: String, onSuccess: (palette: Palette?) -> Unit) {
-        var image: Bitmap? = null
-        viewModelScope.launch(Dispatchers.IO) {
-            runCatching {
-                val url = URL(imageUrl)
-                image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-            }.onSuccess {
-                withContext(Dispatchers.Main) {
-                    image?.let {
-                        val builder = Palette.Builder(image!!)
-                        val palette = builder.generate { palette: Palette? ->
-                            onSuccess.invoke(palette)
-                        }
-                    }
-                }
-            }
-        }
     }
 }

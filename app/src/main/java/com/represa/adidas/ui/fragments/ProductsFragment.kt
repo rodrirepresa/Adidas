@@ -48,10 +48,15 @@ class ProductsFragment : Fragment() {
                 binding.noResults.visibility = View.GONE
                 binding.yourSearch.visibility = View.GONE
             } else {
-                binding.noResults.visibility = View.VISIBLE
-                binding.yourSearch.text =
-                    "Your search " + productViewModel.searchFlow.value + " did not match any product"
-                binding.yourSearch.visibility = View.VISIBLE
+                productViewModel.showCorrectEmptyProductsMessage { title, subtilte ->
+                    binding.noResults.text = title
+                    binding.noResults.visibility = View.VISIBLE
+                    binding.yourSearch.visibility = View.VISIBLE
+                    binding.yourSearch.text = subtilte
+
+                }
+
+
             }
             var adapter = binding.productList.adapter as ProductsAdapter
             adapter.submitList(it)

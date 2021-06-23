@@ -62,7 +62,6 @@ class ProductDetailFragment : Fragment() {
         _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
         productId = safeArgs.productId
         productDetailViewModel.getProduct(productId)
-        productDetailViewModel.fetchReviews(productId)
 
         binding.background.setBackgroundColor(0xFFeceeef.toInt())
 

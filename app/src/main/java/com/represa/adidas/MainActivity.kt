@@ -9,6 +9,8 @@ import com.represa.adidas.ui.fragments.InternetConectionDialogFragment
 import com.represa.adidas.ui.viewmodels.ProductViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.fragment.app.Fragment
+import com.represa.adidas.data.exception.ProductDetailException
+import com.represa.adidas.data.exception.ProductsException
 import com.represa.adidas.ui.fragments.ProductsFragment
 
 
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private val productViewModel: ProductViewModel by viewModel()
     private var internetDialog: InternetConectionDialogFragment? = null
+    private var errorDialog: Dialog? = null
 
     private fun startObserver() {
         productViewModel.internetConection.observe(this, {
@@ -46,9 +49,27 @@ class MainActivity : AppCompatActivity() {
         }
 
         productViewModel.errorLiveData.observe(this, {
-            it?.let {
-                if (internetDialog == null || !internetDialog!!.isVisible) {
-                    onCreateDialog(it.message).show()
+            if (errorDialog == null || !errorDialog!!.isShowing) {
+                when (it) {
+                    is ProductDetailException -> {
+                        it?.let {
+                            if (internetDialog == null || !internetDialog!!.isVisible) {
+                                errorDialog = onCreateDialog(it.message) {
+                                    super.onBackPressed()
+                                }
+                                errorDialog!!.show()
+                            }
+                        }
+                    }
+                    is ProductsException -> {}
+                    else -> {
+                        it?.let {
+                            if (internetDialog == null || !internetDialog!!.isVisible) {
+                                errorDialog = onCreateDialog(it.message) {}
+                                errorDialog!!.show()
+                            }
+                        }
+                    }
                 }
             }
         })
@@ -67,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         startObserver()
     }
 
-    fun onCreateDialog(error: String?): Dialog {
+    fun onCreateDialog(error: String?, onClose: () -> Unit): Dialog {
         var message = error ?: "Something went wrong"
         return this?.let {
             val builder = AlertDialog.Builder(it)
@@ -76,6 +97,7 @@ class MainActivity : AppCompatActivity() {
                     "Close"
                 ) { dialog, id ->
                     dialog.dismiss()
+                    onClose.invoke()
                 }
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
@@ -83,8 +105,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         getForegroundFragment()?.let {
-            when(it){
-                is ProductsFragment -> { }
+            when (it) {
+                is ProductsFragment -> {
+                }
                 else -> super.onBackPressed()
             }
         }
