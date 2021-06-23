@@ -19,10 +19,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 private const val BASE_PRODUCT_URL_NAME = "BASE_PRODUCT_URL"
-private const val BASE_PRODUCT_URL = "http://192.168.178.192:3001"
+//If you want to run it in a physical device, change the url to your api host ip
+private const val BASE_PRODUCT_URL = "http://10.0.2.2:3001"
 
 private const val BASE_REVIEW_URL_NAME = "BASE_REVIEW_URL"
-private const val BASE_REVIEW_URL = "http://192.168.178.192:3002"
+//If you want to run it in a physical device, change the url to your api host ip
+private const val BASE_REVIEW_URL = "http://10.0.2.2:3002"
 
 const val ERROR_FLOW = "ERROR_FLOW"
 
