@@ -45,12 +45,16 @@ class ProductsFragment : Fragment() {
                 if (it.isNotEmpty()) {
                     noResults.visibility = View.GONE
                     yourSearch.visibility = View.GONE
+                    refresh.visibility = View.GONE
                 } else {
-                    productViewModel.showCorrectEmptyProductsMessage { title, subtilte ->
+                    productViewModel.showCorrectEmptyProductsMessage { title, subtitle, serverError ->
                         noResults.text = title
                         noResults.visibility = View.VISIBLE
                         yourSearch.visibility = View.VISIBLE
-                        yourSearch.text = subtilte
+                        yourSearch.text = subtitle
+                        if (serverError) {
+                            refresh.visibility = View.VISIBLE
+                        }
                     }
                 }
                 var adapter = binding.productList.adapter as ProductsAdapter
@@ -67,8 +71,6 @@ class ProductsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
 
         startObservers()
 
@@ -95,6 +97,10 @@ class ProductsFragment : Fragment() {
         }
 
         initCompose()
+
+        binding.refresh.setOnClickListener {
+            productViewModel.populateDatabase()
+        }
 
         //Set up Product adapter
         val adapter = createAdapter()

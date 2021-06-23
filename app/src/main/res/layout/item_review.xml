@@ -19,7 +19,7 @@
         android:id="@+id/star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_baseline_star_rate_24"
+        android:background="@drawable/ic_baseline_star_rate"
         app:layout_constraintBottom_toBottomOf="@id/rating"
         app:layout_constraintLeft_toRightOf="@id/rating"
         app:layout_constraintTop_toTopOf="parent" />

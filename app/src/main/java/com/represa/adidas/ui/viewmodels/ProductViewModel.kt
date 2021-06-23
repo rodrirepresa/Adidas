@@ -50,7 +50,7 @@ class ProductViewModel(
         }
     }
 
-    fun showCorrectEmptyProductsMessage(bindText: (title: String, subTitle: String) -> Unit) {
+    fun showCorrectEmptyProductsMessage(bindText: (title: String, subTitle: String, serverError: Boolean) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 var products = getProductsUseCase.invoke(Unit)
@@ -64,7 +64,7 @@ class ProductViewModel(
                     subTitle = "Your search " + searchFlow.value + " did not match any product"
                 }
                 withContext(Dispatchers.Main) {
-                    bindText.invoke(title, subTitle)
+                    bindText.invoke(title, subTitle, products.isNullOrEmpty())
                 }
             }.onFailure {
                 errorStream.value =
