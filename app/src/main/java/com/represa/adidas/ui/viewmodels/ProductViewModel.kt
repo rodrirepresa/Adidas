@@ -18,10 +18,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ProductViewModel(
-    /*
-    var getProductsUseCase: GetProductsUseCase,
-    var getReviewsUseCase: GetReviewsUseCase,
-    var createReviewUseCase: CreateReviewUseCase,*/
     val context: Context,
     var getProductsUseCase: GetProductsUseCase,
     var fetchProductsUseCase: FetchProductsUseCase,

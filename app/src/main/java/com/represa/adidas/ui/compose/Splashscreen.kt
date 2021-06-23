@@ -16,9 +16,9 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun SplashScreen(onSucces: () -> Unit) {
 
-    var sizeLine = remember{ Animatable(0f) }
+    var sizeLine = remember { Animatable(0f) }
 
-    LaunchedEffect(sizeLine){
+    LaunchedEffect(sizeLine) {
         sizeLine.animateTo(
             targetValue = 1f,
             animationSpec = tween(durationMillis = 2000)

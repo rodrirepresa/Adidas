@@ -12,12 +12,12 @@ data class Product(
     val imgUrl: String
 )
 
-fun Product.toDomainModel() : ProductEntity {
+fun Product.toDomainModel(): ProductEntity {
     return ProductEntity(
         currency = currency,
         price = price,
         id = id,
-        name = name[0].toUpperCase() + name.subSequence(1,name.length).toString(),
+        name = name[0].toUpperCase() + name.subSequence(1, name.length).toString(),
         description = description,
         imgUrl = imgUrl
     )

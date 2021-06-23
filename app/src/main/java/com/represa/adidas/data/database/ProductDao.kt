@@ -15,13 +15,13 @@ interface ProductDao {
     fun insertProducts(products: List<ProductEntity>)
 
     @Query("SELECT * FROM product")
-    suspend fun getProducts() : List<ProductEntity>
+    suspend fun getProducts(): List<ProductEntity>
 
     @Query("SELECT * FROM product WHERE name LIKE '%' || :key || '%' OR description LIKE '%' || :key || '%'")
-    fun getProductsFiltered(key: String) : Flow<List<ProductEntity>>
+    fun getProductsFiltered(key: String): Flow<List<ProductEntity>>
 
     @Query("SELECT * FROM product WHERE id = :idProduct")
-    fun getProduct(idProduct : String) : ProductEntity
+    fun getProduct(idProduct: String): ProductEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertReview(review: ReviewEntity)
@@ -30,7 +30,7 @@ interface ProductDao {
     fun insertReviews(review: List<ReviewEntity>)
 
     @Query("SELECT * FROM review WHERE productId = :productId")
-    fun getReviews(productId: String) : Flow<List<ReviewEntity>>
+    fun getReviews(productId: String): Flow<List<ReviewEntity>>
 
 
 }

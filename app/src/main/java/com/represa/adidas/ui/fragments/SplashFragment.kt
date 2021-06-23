@@ -9,9 +9,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.fragment.findNavController
 import com.represa.adidas.R
 import com.represa.adidas.databinding.FragmentSplashBinding
-import com.represa.adidas.databinding.ReviewDialogBinding
 import com.represa.adidas.ui.MyTheme
-import com.represa.adidas.util.RateStars
 import com.represa.adidas.util.SplashScreen
 
 class SplashFragment : Fragment() {

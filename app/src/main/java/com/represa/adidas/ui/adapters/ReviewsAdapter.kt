@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.represa.adidas.data.database.entities.ReviewEntity
 import com.represa.adidas.databinding.ItemReviewBinding
 
-class ReviewsAdapter() : ListAdapter<ReviewEntity,
-        ReviewsAdapter.ViewHolder>(AlbumDiffCallback()) {
+class ReviewsAdapter : ListAdapter<ReviewEntity,
+        ReviewsAdapter.ViewHolder>(ReviewDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!)
@@ -38,7 +38,7 @@ class ReviewsAdapter() : ListAdapter<ReviewEntity,
     }
 }
 
-class AlbumDiffCallback : DiffUtil.ItemCallback<ReviewEntity>() {
+class ReviewDiffCallback : DiffUtil.ItemCallback<ReviewEntity>() {
     override fun areItemsTheSame(oldItem: ReviewEntity, newItem: ReviewEntity): Boolean {
         return oldItem == newItem
     }

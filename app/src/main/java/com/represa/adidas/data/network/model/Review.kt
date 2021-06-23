@@ -9,7 +9,7 @@ data class Review(
     val text: String
 )
 
-fun Review.toDomainModel() : ReviewEntity {
+fun Review.toDomainModel(): ReviewEntity {
     return ReviewEntity(
         productId = productId,
         locale = locale,

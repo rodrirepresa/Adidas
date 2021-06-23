@@ -10,8 +10,26 @@ import org.koin.dsl.module
 
 val useCaseModule = module {
 
-    viewModel { ProductViewModel(androidContext(), get(), get(), get(), get(), get(named(ERROR_FLOW))) }
-    viewModel { ProductDetailViewModel(androidContext(),  get(), get(), get(), get(), get(named(ERROR_FLOW))) }
+    viewModel {
+        ProductViewModel(
+            androidContext(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(named(ERROR_FLOW))
+        )
+    }
+    viewModel {
+        ProductDetailViewModel(
+            androidContext(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(named(ERROR_FLOW))
+        )
+    }
 
     single { GetProductsUseCase(get()) }
     single { GetProductUseCase(get()) }

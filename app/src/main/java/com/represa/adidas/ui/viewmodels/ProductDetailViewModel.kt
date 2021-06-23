@@ -1,10 +1,7 @@
 package com.represa.adidas.ui.viewmodels
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.lifecycle.*
-import androidx.palette.graphics.Palette
 import com.represa.adidas.R
 import com.represa.adidas.data.database.entities.ProductEntity
 import com.represa.adidas.data.exception.GeneralException
@@ -14,8 +11,6 @@ import com.represa.adidas.usecases.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.net.URL
 
 class ProductDetailViewModel(
     private val context: Context,
@@ -30,7 +25,7 @@ class ProductDetailViewModel(
     val product: LiveData<ProductEntity>
         get() = _product
 
-    private var rating : Int? = null
+    private var rating: Int? = null
 
     fun getReviews(productId: String) = getReviewsUseCase.invoke(productId).asLiveData()
 
@@ -39,7 +34,8 @@ class ProductDetailViewModel(
             runCatching {
                 _product.postValue(getProductUseCase.invoke(id))
             }.onFailure {
-                errorStream.value = ProductDetailException(context.getString(R.string.error_general_exception))
+                errorStream.value =
+                    ProductDetailException(context.getString(R.string.error_general_exception))
             }
         }
         fetchReviews(id)
@@ -50,15 +46,16 @@ class ProductDetailViewModel(
             runCatching {
                 fetchReviewsUseCase.invoke(productId)
             }.onFailure {
-                errorStream.value = ProductDetailException(context.getString(R.string.error_api_exception))
+                errorStream.value =
+                    ProductDetailException(context.getString(R.string.error_api_exception))
             }
         }
     }
 
     fun createReview(productId: String?, text: String, onSucces: () -> Unit) {
-        if(rating == null){
+        if (rating == null) {
             errorStream.value = Throwable("Please, select a product rating")
-        }else {
+        } else {
             viewModelScope.launch(Dispatchers.IO) {
                 runCatching {
                     productId?.let {
@@ -81,7 +78,7 @@ class ProductDetailViewModel(
         }
     }
 
-    fun setRating(rate: Int){
+    fun setRating(rate: Int) {
         rating = rate
     }
 }

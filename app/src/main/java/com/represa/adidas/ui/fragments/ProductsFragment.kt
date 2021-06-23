@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.represa.adidas.databinding.FragmentProductsBinding
 import com.represa.adidas.ui.adapters.ProductsAdapter
@@ -27,7 +25,6 @@ import com.represa.adidas.ui.viewmodels.ProductViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.fragment.app.commit
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
@@ -44,22 +41,21 @@ class ProductsFragment : Fragment() {
 
     private fun startObservers() {
         productViewModel.productSearched.observe(viewLifecycleOwner, {
-            if (it.isNotEmpty()) {
-                binding.noResults.visibility = View.GONE
-                binding.yourSearch.visibility = View.GONE
-            } else {
-                productViewModel.showCorrectEmptyProductsMessage { title, subtilte ->
-                    binding.noResults.text = title
-                    binding.noResults.visibility = View.VISIBLE
-                    binding.yourSearch.visibility = View.VISIBLE
-                    binding.yourSearch.text = subtilte
-
+            with(binding) {
+                if (it.isNotEmpty()) {
+                    noResults.visibility = View.GONE
+                    yourSearch.visibility = View.GONE
+                } else {
+                    productViewModel.showCorrectEmptyProductsMessage { title, subtilte ->
+                        noResults.text = title
+                        noResults.visibility = View.VISIBLE
+                        yourSearch.visibility = View.VISIBLE
+                        yourSearch.text = subtilte
+                    }
                 }
-
-
+                var adapter = binding.productList.adapter as ProductsAdapter
+                adapter.submitList(it)
             }
-            var adapter = binding.productList.adapter as ProductsAdapter
-            adapter.submitList(it)
         })
     }
 

@@ -1,4 +1,4 @@
-package com.represa.adidas.util
+package com.represa.adidas.usecases
 
 interface UseCase<I : Any?, O : Any?> {
     suspend operator fun invoke(param: I): O?

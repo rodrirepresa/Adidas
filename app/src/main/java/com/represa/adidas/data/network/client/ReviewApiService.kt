@@ -1,6 +1,5 @@
 package com.represa.adidas.data.network.client
 
-import com.represa.adidas.data.database.entities.ReviewEntity
 import com.represa.adidas.data.network.model.Review
 import retrofit2.http.*
 

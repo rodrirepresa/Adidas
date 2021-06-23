@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,7 +12,6 @@ import coil.load
 import com.represa.adidas.databinding.FragmentProductDetailBinding
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-
 import com.represa.adidas.ui.adapters.ReviewsAdapter
 
 
@@ -21,35 +19,33 @@ class ProductDetailFragment : Fragment() {
 
     private val productDetailViewModel by sharedViewModel<ProductDetailViewModel>()
 
-    private val safeArgs: com.represa.adidas.ui.fragments.ProductDetailFragmentArgs by navArgs()
+    private val safeArgs: ProductDetailFragmentArgs by navArgs()
     private var productId: String = ""
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
 
     private fun startObservers() {
         productDetailViewModel.product.observe(viewLifecycleOwner, {
-            binding.productImage.load(it.imgUrl)
-            binding.bottomSheet.productName.text = it.name.toUpperCase()
-            binding.bottomSheet.productPrice.text = it.price.toString() + it.currency
-            binding.bottomSheet.productDescription.text = it.description
-            /*productDetailViewModel.setUpBackgroundColor(it.imgUrl){ palette ->
-                palette?.let {
-                    var rgb = palette.swatches.first()
-                    //binding.background.setBackgroundColor(rgb.rgb)
-                }
-            }*/
+            with(binding) {
+                productImage.load(it.imgUrl)
+                bottomSheet.productName.text = it.name.toUpperCase()
+                bottomSheet.productPrice.text = it.price.toString() + it.currency
+                bottomSheet.productDescription.text = it.description
+            }
         })
         productDetailViewModel.getReviews(productId).observe(viewLifecycleOwner, {
-            var adapter = binding.bottomSheet.recyclerReviews.adapter as ReviewsAdapter
-            adapter.submitList(it)
-            if (it.isEmpty()) {
-                binding.bottomSheet.noReviews.visibility = View.VISIBLE
-                binding.bottomSheet.writeReview.visibility = View.VISIBLE
-                binding.bottomSheet.textReview.visibility = View.GONE
-            } else {
-                binding.bottomSheet.noReviews.visibility = View.GONE
-                binding.bottomSheet.writeReview.visibility = View.GONE
-                binding.bottomSheet.textReview.visibility = View.VISIBLE
+            with(binding.bottomSheet) {
+                var adapter = recyclerReviews.adapter as ReviewsAdapter
+                adapter.submitList(it)
+                if (it.isEmpty()) {
+                    noReviews.visibility = View.VISIBLE
+                    writeReview.visibility = View.VISIBLE
+                    textReview.visibility = View.GONE
+                } else {
+                    noReviews.visibility = View.GONE
+                    writeReview.visibility = View.GONE
+                    textReview.visibility = View.VISIBLE
+                }
             }
         })
     }
@@ -63,21 +59,19 @@ class ProductDetailFragment : Fragment() {
         productId = safeArgs.productId
         productDetailViewModel.getProduct(productId)
 
-        binding.background.setBackgroundColor(0xFFeceeef.toInt())
-
-        binding.review.setOnClickListener {
-            openReviewDialog()
+        with(binding) {
+            background.setBackgroundColor(0xFFeceeef.toInt())
+            review.setOnClickListener {
+                openReviewDialog()
+            }
+            bottomSheet.writeReview.setOnClickListener {
+                openReviewDialog()
+            }
+            cardview.setOnClickListener {
+                ProductDetailFragment@ findNavController().popBackStack()
+            }
         }
 
-        binding.bottomSheet.writeReview.setOnClickListener{
-            openReviewDialog()
-        }
-
-        binding.cardview.setOnClickListener {
-            this.findNavController().popBackStack()
-        }
-
-        //Set up Review adapter
         val adapter = createAdapter()
         setUpRecyclerView(adapter)
 

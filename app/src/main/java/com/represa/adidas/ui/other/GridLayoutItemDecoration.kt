@@ -18,7 +18,6 @@ class GridLayoutItemDecoration(private val space: Int) : ItemDecoration() {
         outRect.right = space
         outRect.bottom = space * 3
 
-        // Add top margin only for the first item to avoid double space between items
         if (parent.getChildLayoutPosition(view) == 0 || parent.getChildLayoutPosition(view) == 1) {
             outRect.top = space
         } else {

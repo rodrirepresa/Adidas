@@ -1,9 +1,7 @@
 package com.represa.adidas.data.database.entities
 
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 @Entity(tableName = "review",
 primaryKeys = ["id", "productId", "locale", "rating", "text"])
