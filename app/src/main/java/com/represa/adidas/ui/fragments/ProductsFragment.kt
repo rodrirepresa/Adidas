@@ -68,6 +68,8 @@ class ProductsFragment : Fragment() {
         _binding = FragmentProductsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
+
         startObservers()
 
         with(binding.productList) {

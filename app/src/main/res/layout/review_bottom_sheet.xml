@@ -9,8 +9,8 @@
     android:elevation="3dp"
     android:paddingLeft="@dimen/bottomsheet_padding"
     android:paddingRight="@dimen/bottomsheet_padding"
+    android:id="@+id/parent"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="@dimen/bottomsheet_peek_height"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <androidx.cardview.widget.CardView

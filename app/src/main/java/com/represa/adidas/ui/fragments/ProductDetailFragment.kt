@@ -1,5 +1,6 @@
 package com.represa.adidas.ui.fragments
 
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,10 +10,13 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.represa.adidas.databinding.FragmentProductDetailBinding
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import com.represa.adidas.ui.adapters.ReviewsAdapter
+import android.util.DisplayMetrics
+import com.represa.adidas.util.dp
 
 
 class ProductDetailFragment : Fragment() {
@@ -60,6 +64,12 @@ class ProductDetailFragment : Fragment() {
         productDetailViewModel.getProduct(productId)
 
         with(binding) {
+            var bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet.parent)
+            val displayMetrics = DisplayMetrics()
+            requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+            val height = displayMetrics.heightPixels
+            bottomSheetBehavior.peekHeight = height - 350.dp
+            
             background.setBackgroundColor(0xFFeceeef.toInt())
             review.setOnClickListener {
                 openReviewDialog()
@@ -95,5 +105,6 @@ class ProductDetailFragment : Fragment() {
     private fun setUpRecyclerView(adapter: ReviewsAdapter) {
         binding.bottomSheet.recyclerReviews.adapter = adapter
     }
+
 
 }
