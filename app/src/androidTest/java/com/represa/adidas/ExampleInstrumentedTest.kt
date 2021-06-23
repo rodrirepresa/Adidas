@@ -3,8 +3,6 @@ package com.represa.adidas
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.represa.adidas.ui.viewmodels.ProductViewModel
-import org.junit.Test
-import org.junit.Rule
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -12,17 +10,12 @@ import com.represa.adidas.di.appModule
 import com.represa.adidas.di.useCaseModule
 import com.represa.adidas.ui.viewmodels.ProductDetailViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
-import org.junit.After
-import org.junit.Before
+import org.junit.*
 import org.junit.runner.RunWith
 import org.koin.core.context.loadKoinModules
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * To run the test succesfully, please comment the gradle:app line 115 (implementation("androidx.activity:activity-compose:$compose_version")
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest: KoinTest {
@@ -44,25 +37,13 @@ class ExampleInstrumentedTest: KoinTest {
     }
 
     @ExperimentalCoroutinesApi
-    @Test
-    fun `error_live_data`() {
-        //val testContextProvider = TestContextProvider()
-        //productDetailViewModel.changeContextProvider(testContextProvider)
-        assert(productViewModel.errorLiveData.value == null)
-        productDetailViewModel.getProduct("")
-        assert(productViewModel.errorLiveData.value != null)
-    }
-
-    @ExperimentalCoroutinesApi
-    @Test
+    @Ignore("StateFlow testing")
     fun `product_viewmodel_product_searched`() {
-        //val testContextProvider = TestContextProvider()
-        //productDetailViewModel.changeContextProvider(testContextProvider)
         var productSearched = productViewModel.productSearched
         assert(productSearched.value.isNullOrEmpty())
         productViewModel.updateSearchQuery("product")
         var t = productViewModel.productSearched.getOrAwaitValue()
-        assert(productSearched.value!!.isNotEmpty())
+        assert(t.isNotEmpty())
     }
 
     @ExperimentalCoroutinesApi
@@ -103,18 +84,30 @@ class ExampleInstrumentedTest: KoinTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun `product_detail_viewmodel_fetch_reviews`() {
+    fun `product_detail_viewmodel_fetch_reviews_rating_null`() {
+        //val testContextProvider = TestContextProvider()
+        //productDetailViewModel.changeContextProvider(testContextProvider)
+        var reviews = productDetailViewModel.getReviews("NO_RESULTS")
+        assert(reviews.value == null)
+        productDetailViewModel.createReview("NO_RESULTS", "NO_RESULTS", {  })
+        var newreviews = productDetailViewModel.getReviews("NO_RESULTS").getOrAwaitValue()
+        assert(newreviews.isNullOrEmpty())
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `product_detail_viewmodel_create_and_fetch_reviews_rating_not_null`() {
         //val testContextProvider = TestContextProvider()
         //productDetailViewModel.changeContextProvider(testContextProvider)
         var reviews = productDetailViewModel.getReviews("HI334")
-        assert(reviews.value == null)
+        assert(reviews.value.isNullOrEmpty())
+        productDetailViewModel.setRating(5)
         productDetailViewModel.createReview("HI334", "HI334", {  })
         var newreviews = productDetailViewModel.getReviews("HI334").getOrAwaitValue()
         assert(newreviews != null)
-        /*for(i in reviews.value!!){
+        for(i in newreviews!!){
             assert(i.productId == "HI334")
-        }*/
+        }
     }
-
 
 }
