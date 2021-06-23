@@ -1,75 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
-    <!--<TextView
-        android:textColor="@color/black"
+    <TextView
         android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
-        android:text="5"
-        android:textSize="15dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-        android:id="@+id/star"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_star_rate_24"
-        app:layout_constraintLeft_toRightOf="@id/rating"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/rating"/>
-
-    <TextView
-        android:textColor="@color/dark_gray"
-        android:id="@+id/review_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat"
-        android:text="Incredible shoes they are the best in the live you have to buy themdddd"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/star"/>-->
-
-    <TextView
-
+        android:text=""
         android:textColor="@color/black"
-        android:id="@+id/rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="5"
-        android:textSize="15dp"
+        android:textSize="@dimen/rating_margin"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/star"
-        android:background="@drawable/ic_baseline_star_rate_24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/ic_baseline_star_rate_24"
+        app:layout_constraintBottom_toBottomOf="@id/rating"
         app:layout_constraintLeft_toRightOf="@id/rating"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/rating"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:gravity="start"
-        app:layout_constraintRight_toRightOf="parent"
-        android:textColor="@color/dark_gray"
         android:id="@+id/review_text"
-        android:layout_marginTop="4dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        app:layout_constraintStart_toEndOf="@id/star"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/review_margin_left"
+        android:layout_marginTop="@dimen/review_margin_top"
+        android:gravity="start"
+        android:text=""
+        android:textColor="@color/dark_gray"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="They are the best shoes i ever had i recommend you to buyyyy because fgdfgdfg"/>
-
-
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@id/star"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

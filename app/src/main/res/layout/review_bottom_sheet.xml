@@ -6,69 +6,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:elevation="3dp"
+    android:paddingLeft="@dimen/bottomsheet_padding"
+    android:paddingRight="@dimen/bottomsheet_padding"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="450dp"
-    app:layout_behavior="@string/bottom_sheet_behavior"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:elevation="3dp">
+    app:behavior_peekHeight="@dimen/bottomsheet_peek_height"
+    app:layout_behavior="@string/bottom_sheet_behavior">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="50dp"
-        android:layout_height="5dp"
+        android:id="@+id/indicator"
+        android:layout_width="@dimen/indicator_width"
+        android:layout_height="@dimen/indicator_height"
+        android:layout_marginTop="@dimen/indicator_top_margin"
         app:cardBackgroundColor="@color/backgroundProducts"
-        app:cardCornerRadius="5sp"
-        android:layout_marginTop="10dp"
+        app:cardCornerRadius="@dimen/indicator_elevation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/indicator"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:textColor="@color/black"
         android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="@dimen/product_name_margin_top"
         android:fontFamily="@font/montserrat_bold"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/indicator"
+        android:textColor="@color/black"
+        android:textSize="@dimen/your_search_text_size"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/indicator" />
 
     <TextView
-        android:textColor="@color/black"
-        android:textSize="15sp"
         android:id="@+id/product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
+        android:textColor="@color/black"
+        android:textSize="@dimen/description_text_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/product_name" />
 
     <TextView
-        android:textColor="@color/black"
-        android:textSize="15sp"
         android:id="@+id/product_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
+        android:textColor="@color/black"
+        android:textSize="@dimen/description_text_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/product_price" />
 
     <TextView
-        android:textColor="@color/black"
         android:id="@+id/text_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/review_title_margin_top"
         android:fontFamily="@font/montserrat_bold"
         android:text="REVIEWS"
+        android:textColor="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_description"/>
+        app:layout_constraintTop_toBottomOf="@+id/product_description" />
 
     <TextView
         android:id="@+id/no_reviews"
@@ -77,7 +76,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:text="NO REVIEWS YET"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="@dimen/no_review_yet_text_size"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,30 +85,29 @@
         app:layout_constraintVertical_bias="0.18" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/write_review"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Start writting your own review"
         android:fontFamily="@font/montserrat"
+        android:text="Start writting your own review"
         android:textAlignment="center"
-        android:textSize="15sp"
         android:textColor="@color/dark_gray"
+        android:textSize="@dimen/no_review_yet_subtitle_text_size"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/no_reviews"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/no_reviews" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_reviews"
-        android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_review"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_review"/>
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_review"
+        tools:listitem="@layout/item_review" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

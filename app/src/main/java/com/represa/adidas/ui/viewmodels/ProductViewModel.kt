@@ -57,10 +57,10 @@ class ProductViewModel(
                 var title = ""
                 var subTitle = ""
                 if (products.isNullOrEmpty()) {
-                    title = "WE ARE SORRY"
-                    subTitle = "We can't retrieve your data\n Try it later"
+                    title = context.getString(R.string.server_error_title)
+                    subTitle = context.getString(R.string.server_error_title)
                 } else {
-                    title = "NO RESULTS"
+                    title = context.getString(R.string.no_results)
                     subTitle = "Your search " + searchFlow.value + " did not match any product"
                 }
                 withContext(Dispatchers.Main) {

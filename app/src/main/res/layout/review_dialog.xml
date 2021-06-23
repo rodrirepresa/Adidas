@@ -7,10 +7,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
+        android:paddingLeft="@dimen/review_dialog_horizontal_margin"
+        android:paddingTop="@dimen/review_dialog_vertical_margin"
+        android:paddingRight="@dimen/review_dialog_horizontal_margin"
+        android:paddingBottom="@dimen/review_dialog_vertical_margin">
 
         <TextView
             android:id="@+id/title"
@@ -18,33 +18,33 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat_bold"
-            android:text="YOUR REVIEW"
-            android:textColor="@color/black"
+            android:text="@string/your_review"
             android:textAlignment="center"
-            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/your_review_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text"
-            app:boxStrokeColor="@color/black"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/review_box_margin_top"
             android:hint="Share here your experience"
+            app:boxStrokeColor="@color/black"
             app:errorEnabled="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:maxLength="100"
-                android:fontFamily="@font/montserrat"
-                android:textColor="@color/dark_gray"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:maxLength="100"
+                android:textColor="@color/dark_gray" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,18 +52,17 @@
             android:id="@+id/compose_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginBottom="@dimen/stars_bottom_margin"
             app:layout_constraintBottom_toTopOf="@id/submit"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="20dp"/>
-
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <Button
             android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
-            android:text="SUBMIT REVIEW"
+            android:text="@string/submit_review"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

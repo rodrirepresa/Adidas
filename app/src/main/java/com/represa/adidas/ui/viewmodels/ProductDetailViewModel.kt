@@ -35,7 +35,7 @@ class ProductDetailViewModel(
                 _product.postValue(getProductUseCase.invoke(id))
             }.onFailure {
                 errorStream.value =
-                    ProductDetailException(context.getString(R.string.error_general_exception))
+                    ProductDetailException(context.getString(R.string.error_api_exception))
             }
         }
         fetchReviews(id)
@@ -54,7 +54,7 @@ class ProductDetailViewModel(
 
     fun createReview(productId: String?, text: String, onSucces: () -> Unit) {
         if (rating == null) {
-            errorStream.value = Throwable("Please, select a product rating")
+            errorStream.value = Throwable(context.getString(R.string.error_rating))
         } else {
             viewModelScope.launch(Dispatchers.IO) {
                 runCatching {

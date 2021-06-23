@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/frame_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="@dimen/small_item_card_corner_radius">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/product_image"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay_card_custom_corners"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/small_product_image"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay_card_custom_corners" />
 
     <TextView
-        android:layout_marginTop="5dp"
         android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/product_name_list_margin"
         android:fontFamily="@font/montserrat_bold"
         android:maxLines="1"
         android:text="Grand Court SE"
@@ -37,9 +35,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
         android:maxLines="1"
-        android:text="75$"
-        android:textColor="@color/black"
+        android:text="@string/default_price"
         android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/product_name" />
 

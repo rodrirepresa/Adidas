@@ -18,9 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
-        android:text="NO RESULTS"
+        android:text="@string/no_results"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="@dimen/no_results_text_size"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,25 +29,24 @@
 
     <TextView
         android:id="@+id/your_search"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/your_search_witdth"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:text="Your search did not match any products"
+        android:text="@string/your_search"
         android:textAlignment="center"
         android:textColor="@color/dark_gray"
-        android:textSize="15sp"
+        android:textSize="@dimen/your_search_text_size"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/no_results" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="@dimen/product_list_margin"
+        android:layout_marginRight="@dimen/product_list_margin"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

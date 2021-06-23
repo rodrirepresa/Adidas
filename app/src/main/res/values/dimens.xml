@@ -1,3 +1,37 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="pdv_image_height">350dp</dimen>
+    <dimen name="pdv_back_size">50dp</dimen>
+    <dimen name="pdv_back_margin">15dp</dimen>
+    <dimen name="pdv_back_card_corner_radius">30sp</dimen>
+    <dimen name="no_results_text_size">20sp</dimen>
+    <dimen name="your_search_witdth">250dp</dimen>
+    <dimen name="your_search_text_size">15sp</dimen>
+    <dimen name="product_list_margin">5dp</dimen>
+    <dimen name="big_product_image">400dp</dimen>
+    <dimen name="product_name_list_margin">5dp</dimen>
+    <dimen name="small_item_card_corner_radius">10sp</dimen>
+    <dimen name="small_product_image">200dp</dimen>
+    <dimen name="rating_margin">15dp</dimen>
+    <dimen name="review_margin_left">5dp</dimen>
+    <dimen name="review_margin_top">4dp</dimen>
+    <dimen name="bottomsheet_peek_height">450dp</dimen>
+    <dimen name="bottomsheet_padding">15dp</dimen>
+    <dimen name="indicator_width">50dp</dimen>
+    <dimen name="indicator_height">5dp</dimen>
+    <dimen name="indicator_elevation">5sp</dimen>
+    <dimen name="indicator_top_margin">10dp</dimen>
+    <dimen name="product_name_margin_top">25dp</dimen>
+    <dimen name="product_name_text_sie">20sp</dimen>
+    <dimen name="description_text_size">15sp</dimen>
+    <dimen name="review_title_margin_top">20dp</dimen>
+    <dimen name="no_review_yet_text_size">20sp</dimen>
+    <dimen name="no_review_yet_subtitle_text_size">15sp</dimen>
+    <dimen name="review_dialog_horizontal_margin">30dp</dimen>
+    <dimen name="review_dialog_vertical_margin">20dp</dimen>
+    <dimen name="your_review_text_size">25sp</dimen>
+    <dimen name="review_box_margin_top">10dp</dimen>
+    <dimen name="stars_bottom_margin">20dp</dimen>
+
+
 </resources>
