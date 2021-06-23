@@ -1,6 +1,5 @@
 package com.represa.adidas.ui.fragments
 
-import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -69,7 +68,7 @@ class ProductDetailFragment : Fragment() {
             requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
             val height = displayMetrics.heightPixels
             bottomSheetBehavior.peekHeight = height - 350.dp
-            
+
             background.setBackgroundColor(0xFFeceeef.toInt())
             review.setOnClickListener {
                 openReviewDialog()
@@ -105,6 +104,5 @@ class ProductDetailFragment : Fragment() {
     private fun setUpRecyclerView(adapter: ReviewsAdapter) {
         binding.bottomSheet.recyclerReviews.adapter = adapter
     }
-
 
 }

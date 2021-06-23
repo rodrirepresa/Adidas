@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.represa.adidas.R
 import com.represa.adidas.ui.MyTheme
-import com.represa.adidas.ui.other.GridLayoutItemDecoration
+import com.represa.adidas.util.GridLayoutItemDecoration
 
 class ProductsFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.represa.adidas.ui.other
+package com.represa.adidas.util
 
 import android.graphics.Rect
 import android.view.View
