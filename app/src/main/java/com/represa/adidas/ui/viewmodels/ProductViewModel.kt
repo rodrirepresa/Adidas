@@ -58,7 +58,7 @@ class ProductViewModel(
                 var subTitle = ""
                 if (products.isNullOrEmpty()) {
                     title = context.getString(R.string.server_error_title)
-                    subTitle = context.getString(R.string.server_error_title)
+                    subTitle = context.getString(R.string.server_error_subtitle)
                 } else {
                     title = context.getString(R.string.no_results)
                     subTitle = "Your search " + searchFlow.value + " did not match any product"

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Adidas</string>
-    <string name="error_api_exception">Something went wrong retrieving your data.\nPlease try it again</string>
+    <string name="error_api_exception">Something went wrong retrieving the data.\nPlease try it again</string>
     <string name="error_general_exception">Something went wrong.\nPlease try it again</string>
     <string name="error_rating">Please, select a product rating</string>
     <string name="no_results">NO RESULTS</string>
@@ -9,5 +9,5 @@
     <string name="your_review">YOUR REVIEW</string>
     <string name="submit_review">SUBMIT REVIEW</string>
     <string name="server_error_title">WE ARE SORRY</string>
-    <string name="server_error_subtitle">We can\'t retrieve your data\n Try it later</string>
+    <string name="server_error_subtitle">We can\'t retrieve any data\n Try it later</string>
 </resources>

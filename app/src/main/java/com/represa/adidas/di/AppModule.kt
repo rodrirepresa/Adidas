@@ -17,11 +17,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 private const val BASE_PRODUCT_URL_NAME = "BASE_PRODUCT_URL"
 
+//If ou want to run in the AS simulator you have to use the next url:  http://10.0.2.2:3001
 //If you want to run it in a physical device, change the url to your api host ip (example: http://192.168.240.10:3001)
 private const val BASE_PRODUCT_URL = "http://192.168.178.241:3001"
 
 private const val BASE_REVIEW_URL_NAME = "BASE_REVIEW_URL"
 
+//If ou want to run in the AS simulator you have to use the next url:  http://10.0.2.2:3002
 //If you want to run it in a physical device, change the url to your api host ip (example: http://192.168.240.10:3002)
 private const val BASE_REVIEW_URL = "http://192.168.178.241:3002"
 
