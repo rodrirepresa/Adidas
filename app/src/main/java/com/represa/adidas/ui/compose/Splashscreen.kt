@@ -1,4 +1,4 @@
-package com.represa.adidas.util
+package com.represa.adidas.ui.compose
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween

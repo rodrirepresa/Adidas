@@ -6,5 +6,4 @@ interface UseCase<I : Any?, O : Any?> {
 
 interface SynchronousUseCase<I : Any?, O : Any?> {
     operator fun invoke(param: I): O
-    fun dispose() {}
 }

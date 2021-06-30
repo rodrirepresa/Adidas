@@ -49,8 +49,6 @@ class ExampleInstrumentedTest: KoinTest {
     @ExperimentalCoroutinesApi
     @Test
     fun `product_viewmodel_update_search_query`() {
-        //val testContextProvider = TestContextProvider()
-        //productDetailViewModel.changeContextProvider(testContextProvider)
         var searchValue = productViewModel.searchFlow
         assert(searchValue.value == "")
         productViewModel.updateSearchQuery("test")
@@ -60,11 +58,9 @@ class ExampleInstrumentedTest: KoinTest {
     @ExperimentalCoroutinesApi
     @Test
     fun `product_detail_viewmodel_get_review`() {
-        //val testContextProvider = TestContextProvider()
-        //productDetailViewModel.changeContextProvider(testContextProvider)
         var reviews = productDetailViewModel.getReviews("NO_RESULT")
         assert(reviews.value.isNullOrEmpty())
-        productDetailViewModel.createReview("NO_RESULT", "TEST", {} )
+        productDetailViewModel.createReview("NO_RESULT", "TEST") {}
         reviews = productDetailViewModel.getReviews("NO_RESULT")
         assert(reviews.value.isNullOrEmpty())
     }
@@ -72,8 +68,6 @@ class ExampleInstrumentedTest: KoinTest {
     @ExperimentalCoroutinesApi
     @Test
     fun `product_detail_viewmodel_get_product`() {
-        //val testContextProvider = TestContextProvider()
-        //productDetailViewModel.changeContextProvider(testContextProvider)
         var product = productDetailViewModel.product.value
         assert(product == null)
         productDetailViewModel.getProduct("HI334")
@@ -85,11 +79,9 @@ class ExampleInstrumentedTest: KoinTest {
     @ExperimentalCoroutinesApi
     @Test
     fun `product_detail_viewmodel_fetch_reviews_rating_null`() {
-        //val testContextProvider = TestContextProvider()
-        //productDetailViewModel.changeContextProvider(testContextProvider)
         var reviews = productDetailViewModel.getReviews("NO_RESULTS")
         assert(reviews.value == null)
-        productDetailViewModel.createReview("NO_RESULTS", "NO_RESULTS", {  })
+        productDetailViewModel.createReview("NO_RESULTS", "NO_RESULTS") { }
         var newreviews = productDetailViewModel.getReviews("NO_RESULTS").getOrAwaitValue()
         assert(newreviews.isNullOrEmpty())
     }
@@ -97,12 +89,10 @@ class ExampleInstrumentedTest: KoinTest {
     @ExperimentalCoroutinesApi
     @Test
     fun `product_detail_viewmodel_create_and_fetch_reviews_rating_not_null`() {
-        //val testContextProvider = TestContextProvider()
-        //productDetailViewModel.changeContextProvider(testContextProvider)
         var reviews = productDetailViewModel.getReviews("HI334")
         assert(reviews.value.isNullOrEmpty())
         productDetailViewModel.setRating(5)
-        productDetailViewModel.createReview("HI334", "HI334", {  })
+        productDetailViewModel.createReview("HI334", "HI334") { }
         var newreviews = productDetailViewModel.getReviews("HI334").getOrAwaitValue()
         assert(newreviews != null)
         for(i in newreviews!!){

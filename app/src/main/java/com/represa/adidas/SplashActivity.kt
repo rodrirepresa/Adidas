@@ -5,7 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.represa.adidas.ui.MyTheme
-import com.represa.adidas.util.SplashScreen
+import com.represa.adidas.ui.compose.SplashScreen
 import android.content.Intent
 import com.represa.adidas.ui.viewmodels.SplashViewModel
 
